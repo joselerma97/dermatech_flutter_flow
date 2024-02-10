@@ -1,6 +1,11 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/pages/components/loading/loading_widget.dart';
+import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'configurations_model.dart';
@@ -22,6 +27,39 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ConfigurationsModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.devicesInfo = await GetDevicesCall.call(
+        userId: FFAppState().userIdServer,
+      );
+      if ((_model.devicesInfo?.succeeded ?? true)) {
+        setState(() {
+          _model.devices = GetDevicesCall.devices(
+            (_model.devicesInfo?.jsonBody ?? ''),
+          )!
+              .toList()
+              .cast<DeviceInfoStruct>();
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Server Error',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).primaryText,
+              ),
+            ),
+            duration: const Duration(milliseconds: 4000),
+            backgroundColor: FlutterFlowTheme.of(context).secondary,
+          ),
+        );
+      }
+
+      setState(() {
+        _model.isLoading = false;
+      });
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -64,15 +102,72 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: const [],
+          actions: [
+            InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                await action_blocks.logOut(context);
+              },
+              child: Icon(
+                Icons.logout,
+                color: FlutterFlowTheme.of(context).alternate,
+                size: 24.0,
+              ),
+            ),
+          ],
           centerTitle: false,
           elevation: 2.0,
         ),
-        body: const SafeArea(
+        body: SafeArea(
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: [],
+            children: [
+              Text(
+                'Devices',
+                style: FlutterFlowTheme.of(context).bodyMedium,
+              ),
+              if (_model.isLoading)
+                wrapWithModel(
+                  model: _model.loadingModel,
+                  updateCallback: () => setState(() {}),
+                  child: const LoadingWidget(),
+                ),
+              Expanded(
+                child: Builder(
+                  builder: (context) {
+                    final device = _model.devices.toList();
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: device.length,
+                      itemBuilder: (context, deviceIndex) {
+                        final deviceItem = device[deviceIndex];
+                        return Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              deviceItem.name,
+                              style: FlutterFlowTheme.of(context).bodyMedium,
+                            ),
+                            Icon(
+                              Icons.delete,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              size: 24.0,
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),

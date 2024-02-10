@@ -379,6 +379,35 @@ class LogOutCall {
       ));
 }
 
+class GetDevicesCall {
+  static Future<ApiCallResponse> call({
+    String? userId = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getDevices',
+      apiUrl: 'https://dermatechserver.cloud/dermatech/devices/user/$userId',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List<DeviceInfoStruct>? devices(dynamic response) => (getJsonField(
+        response,
+        r'''$.devices''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => DeviceInfoStruct.maybeFromMap(x))
+          .withoutNulls
+          .toList();
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
