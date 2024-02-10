@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/components/loading/loading_widget.dart';
 import 'camera_widget.dart' show CameraWidget;
@@ -25,6 +26,17 @@ class CameraModel extends FlutterFlowModel<CameraWidget> {
 
   bool isPhotoUploaded = false;
 
+  List<DoctorsInfoStruct> doctorsInfo = [];
+  void addToDoctorsInfo(DoctorsInfoStruct item) => doctorsInfo.add(item);
+  void removeFromDoctorsInfo(DoctorsInfoStruct item) =>
+      doctorsInfo.remove(item);
+  void removeAtIndexFromDoctorsInfo(int index) => doctorsInfo.removeAt(index);
+  void insertAtIndexInDoctorsInfo(int index, DoctorsInfoStruct item) =>
+      doctorsInfo.insert(index, item);
+  void updateDoctorsInfoAtIndex(
+          int index, Function(DoctorsInfoStruct) updateFn) =>
+      doctorsInfo[index] = updateFn(doctorsInfo[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -34,6 +46,8 @@ class CameraModel extends FlutterFlowModel<CameraWidget> {
 
   // Stores action output result for [Backend Call - API (fullPrediction)] action in Button widget.
   ApiCallResponse? apiResult4c6;
+  // Stores action output result for [Backend Call - API (getDoctors)] action in Button widget.
+  ApiCallResponse? getDoctorsApi;
   // Model for loading component.
   late LoadingModel loadingModel;
 

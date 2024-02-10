@@ -229,6 +229,34 @@ class FullPredictionCall {
       );
 }
 
+class GetDoctorsCall {
+  static Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getDoctors',
+      apiUrl: 'https://dermatechserver.cloud/doctors/recommendation',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List<DoctorsInfoStruct>? doctorsInfo(dynamic response) =>
+      (getJsonField(
+        response,
+        r'''$.info''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => DoctorsInfoStruct.maybeFromMap(x))
+          .withoutNulls
+          .toList();
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
