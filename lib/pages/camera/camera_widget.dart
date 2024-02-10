@@ -495,7 +495,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                       MainAxisSize.min,
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
-                                                          .spaceEvenly,
+                                                          .spaceBetween,
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
