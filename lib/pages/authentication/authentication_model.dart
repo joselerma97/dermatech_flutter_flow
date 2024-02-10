@@ -16,6 +16,8 @@ class AuthenticationModel extends FlutterFlowModel<AuthenticationWidget> {
   TextEditingController? passwordController;
   late bool passwordVisibility;
   String? Function(BuildContext, String?)? passwordControllerValidator;
+  // Stores action output result for [Custom Action - getDeviceIdentifier] action in Button widget.
+  String? deviceName;
   // Stores action output result for [Backend Call - API (authentication)] action in Button widget.
   ApiCallResponse? authenticationResult;
   // Stores action output result for [Backend Call - API (rememberPassword)] action in RichText widget.

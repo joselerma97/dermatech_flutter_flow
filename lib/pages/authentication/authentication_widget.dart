@@ -278,12 +278,15 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                                               '') &&
                                           (_model.passwordController.text !=
                                               '')) {
+                                        _model.deviceName =
+                                            await actions.getDeviceIdentifier();
                                         _model.authenticationResult =
                                             await AuthenticationCall.call(
                                           email: _model
                                               .emailAddressController.text,
                                           password:
                                               _model.passwordController.text,
+                                          deviceName: _model.deviceName,
                                         );
                                         if ((_model.authenticationResult
                                                 ?.succeeded ??
