@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/pages/components/loading/loading_widget.dart';
 import '/actions/actions.dart' as action_blocks;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
@@ -248,62 +247,41 @@ class _CameraWidgetState extends State<CameraWidget> {
                             ],
                           );
                         } else {
-                          return Builder(
-                            builder: (context) {
-                              if (functions
-                                  .isIssue(_model.imagePredictions.toList())) {
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      'Go to the doctor',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                    ),
-                                  ],
-                                );
-                              } else {
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    if (_model.isProcessed &&
-                                        (_model.imageUrl != ''))
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        child: Image.network(
-                                          'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
-                                          width: 300.0,
-                                          height: 200.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    if (_model.isProcessed)
-                                      Builder(
-                                        builder: (context) {
-                                          final info =
-                                              _model.imagePredictions.toList();
-                                          return ListView.builder(
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: info.length,
-                                            itemBuilder: (context, infoIndex) {
-                                              final infoItem = info[infoIndex];
-                                              return Text(
-                                                infoItem,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
-                                              );
-                                            },
-                                          );
-                                        },
-                                      ),
-                                  ],
-                                );
-                              }
-                            },
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (_model.isProcessed && (_model.imageUrl != ''))
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.network(
+                                    'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
+                                    width: 300.0,
+                                    height: 200.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              if (_model.isProcessed)
+                                Builder(
+                                  builder: (context) {
+                                    final info =
+                                        _model.imagePredictions.toList();
+                                    return ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: info.length,
+                                      itemBuilder: (context, infoIndex) {
+                                        final infoItem = info[infoIndex];
+                                        return Text(
+                                          infoItem,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium,
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                            ],
                           );
                         }
                       },
