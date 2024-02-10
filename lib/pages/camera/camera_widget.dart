@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/pages/components/loading/loading_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -96,6 +97,10 @@ class _CameraWidgetState extends State<CameraWidget> {
                 alignment: const AlignmentDirectional(0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
+                    setState(() {
+                      _model.isLoading = true;
+                      _model.isProcessed = false;
+                    });
                     final selectedMedia =
                         await selectMediaWithSourceBottomSheet(
                       context: context,
@@ -148,6 +153,9 @@ class _CameraWidgetState extends State<CameraWidget> {
                             .toList()
                             .cast<String>();
                       });
+                      setState(() {
+                        _model.isProcessed = true;
+                      });
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -163,6 +171,10 @@ class _CameraWidgetState extends State<CameraWidget> {
                         ),
                       );
                     }
+
+                    setState(() {
+                      _model.isLoading = false;
+                    });
 
                     setState(() {});
                   },
@@ -187,49 +199,53 @@ class _CameraWidgetState extends State<CameraWidget> {
                   ),
                 ),
               ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.memory(
-                  _model.uploadedLocalFile.bytes ?? Uint8List.fromList([]),
-                  width: 300.0,
-                  height: 200.0,
-                  fit: BoxFit.cover,
+              if (!_model.isProcessed)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.memory(
+                    _model.uploadedLocalFile.bytes ?? Uint8List.fromList([]),
+                    width: 300.0,
+                    height: 200.0,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              Text(
-                valueOrDefault<String>(
-                  _model.imageUrl,
-                  '*',
+              if (_model.isLoading)
+                Expanded(
+                  child: wrapWithModel(
+                    model: _model.loadingModel,
+                    updateCallback: () => setState(() {}),
+                    child: const LoadingWidget(),
+                  ),
                 ),
-                style: FlutterFlowTheme.of(context).bodyMedium,
-              ),
-              Builder(
-                builder: (context) {
-                  final info = _model.imagePredictions.toList();
-                  return ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: info.length,
-                    itemBuilder: (context, infoIndex) {
-                      final infoItem = info[infoIndex];
-                      return Text(
-                        infoItem,
-                        style: FlutterFlowTheme.of(context).bodyMedium,
-                      );
-                    },
-                  );
-                },
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
-                  'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
-                  width: 300.0,
-                  height: 200.0,
-                  fit: BoxFit.cover,
+              if (_model.isProcessed)
+                Builder(
+                  builder: (context) {
+                    final info = _model.imagePredictions.toList();
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: info.length,
+                      itemBuilder: (context, infoIndex) {
+                        final infoItem = info[infoIndex];
+                        return Text(
+                          infoItem,
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                        );
+                      },
+                    );
+                  },
                 ),
-              ),
+              if (_model.isProcessed)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.network(
+                    'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
+                    width: 300.0,
+                    height: 200.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
             ],
           ),
         ),
