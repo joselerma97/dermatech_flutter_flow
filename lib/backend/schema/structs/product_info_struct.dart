@@ -12,7 +12,7 @@ class ProductInfoStruct extends BaseStruct {
     String? link,
     String? price,
     String? rating,
-    String? totalRating,
+    int? totalRating,
     String? skinType,
   })  : _id = id,
         _title = title,
@@ -53,9 +53,10 @@ class ProductInfoStruct extends BaseStruct {
   bool hasRating() => _rating != null;
 
   // "total_rating" field.
-  String? _totalRating;
-  String get totalRating => _totalRating ?? '';
-  set totalRating(String? val) => _totalRating = val;
+  int? _totalRating;
+  int get totalRating => _totalRating ?? 0;
+  set totalRating(int? val) => _totalRating = val;
+  void incrementTotalRating(int amount) => _totalRating = totalRating + amount;
   bool hasTotalRating() => _totalRating != null;
 
   // "skin_type" field.
@@ -71,7 +72,7 @@ class ProductInfoStruct extends BaseStruct {
         link: data['link'] as String?,
         price: data['price'] as String?,
         rating: data['rating'] as String?,
-        totalRating: data['total_rating'] as String?,
+        totalRating: castToType<int>(data['total_rating']),
         skinType: data['skin_type'] as String?,
       );
 
@@ -113,7 +114,7 @@ class ProductInfoStruct extends BaseStruct {
         ),
         'total_rating': serializeParam(
           _totalRating,
-          ParamType.String,
+          ParamType.int,
         ),
         'skin_type': serializeParam(
           _skinType,
@@ -150,7 +151,7 @@ class ProductInfoStruct extends BaseStruct {
         ),
         totalRating: deserializeParam(
           data['total_rating'],
-          ParamType.String,
+          ParamType.int,
           false,
         ),
         skinType: deserializeParam(
@@ -186,7 +187,7 @@ ProductInfoStruct createProductInfoStruct({
   String? link,
   String? price,
   String? rating,
-  String? totalRating,
+  int? totalRating,
   String? skinType,
 }) =>
     ProductInfoStruct(
