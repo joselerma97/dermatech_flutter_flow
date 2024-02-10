@@ -97,7 +97,7 @@ class _CameraWidgetState extends State<CameraWidget> {
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Align(
@@ -467,12 +467,6 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                       children: [
                                                         Text(
                                                           productItem.title,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium,
-                                                        ),
-                                                        Text(
-                                                          productItem.rating,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium,
