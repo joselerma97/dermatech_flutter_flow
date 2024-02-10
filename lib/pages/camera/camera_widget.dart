@@ -206,13 +206,6 @@ class _CameraWidgetState extends State<CameraWidget> {
                   ),
                 ),
               ),
-              Text(
-                valueOrDefault<String>(
-                  _model.imageUrl,
-                  '-',
-                ),
-                style: FlutterFlowTheme.of(context).bodyMedium,
-              ),
               if (!_model.isProcessed && _model.isPhotoUploaded)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
