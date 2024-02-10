@@ -355,12 +355,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         (_model.ageController.text != '') &&
                         (_model.nicknameController.text != '') &&
                         (_model.passwordController.text != '')) {
+                      _model.deviceName = await actions.getDeviceIdentifier();
                       _model.apiResultb9a = await RegisterUserCall.call(
                         email: _model.emailController.text,
                         age: int.tryParse(_model.ageController.text),
                         nickname: _model.nicknameController.text,
                         gender: _model.genderValue,
                         password: _model.passwordController.text,
+                        deviceName: _model.deviceName,
                       );
                       if ((_model.apiResultb9a?.succeeded ?? true)) {
                         setState(() {

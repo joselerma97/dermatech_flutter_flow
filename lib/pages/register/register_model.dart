@@ -28,6 +28,8 @@ class RegisterModel extends FlutterFlowModel<RegisterWidget> {
   TextEditingController? passwordController;
   late bool passwordVisibility;
   String? Function(BuildContext, String?)? passwordControllerValidator;
+  // Stores action output result for [Custom Action - getDeviceIdentifier] action in action widget.
+  String? deviceName;
   // Stores action output result for [Backend Call - API (registerUser)] action in action widget.
   ApiCallResponse? apiResultb9a;
 

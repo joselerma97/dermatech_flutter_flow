@@ -8,3 +8,5 @@ export '/pages/camera/camera_widget.dart' show CameraWidget;
 export '/pages/recommendation/recommendation_widget.dart'
     show RecommendationWidget;
 export '/pages/tips_page/tips_page_widget.dart' show TipsPageWidget;
+export '/pages/configurations/configurations_widget.dart'
+    show ConfigurationsWidget;

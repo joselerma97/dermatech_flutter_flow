@@ -15,6 +15,7 @@ class RegisterUserCall {
     String? nickname = '',
     String? gender = '',
     String? password = '',
+    String? deviceName = '',
   }) async {
     final ffApiRequestBody = '''
 {
@@ -22,7 +23,8 @@ class RegisterUserCall {
   "age": $age,
   "nickname": "$nickname",
   "gender": "$gender",
-  "password": "$password"
+  "password": "$password",
+  "deviceName": "$deviceName"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'registerUser',
@@ -54,11 +56,13 @@ class AuthenticationCall {
   static Future<ApiCallResponse> call({
     String? email = '',
     String? password = '',
+    String? deviceName = '',
   }) async {
     final ffApiRequestBody = '''
 {
   "email": "$email",
-  "password": "$password"
+  "password": "$password",
+  "deviceName": "$deviceName"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'authentication',

@@ -80,6 +80,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'TipsPage')
               : const TipsPageWidget(),
+        ),
+        FFRoute(
+          name: 'Configurations',
+          path: '/configurations',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'Configurations')
+              : const ConfigurationsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
