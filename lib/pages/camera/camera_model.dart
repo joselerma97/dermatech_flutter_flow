@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/pages/components/loading/loading_widget.dart';
 import 'camera_widget.dart' show CameraWidget;
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,10 @@ class CameraModel extends FlutterFlowModel<CameraWidget> {
   void updateImagePredictionsAtIndex(int index, Function(String) updateFn) =>
       imagePredictions[index] = updateFn(imagePredictions[index]);
 
+  bool isLoading = false;
+
+  bool isProcessed = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -27,15 +32,20 @@ class CameraModel extends FlutterFlowModel<CameraWidget> {
 
   // Stores action output result for [Backend Call - API (fullPrediction)] action in Button widget.
   ApiCallResponse? apiResult4c6;
+  // Model for loading component.
+  late LoadingModel loadingModel;
 
   /// Initialization and disposal methods.
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    loadingModel = createModel(context, () => LoadingModel());
+  }
 
   @override
   void dispose() {
     unfocusNode.dispose();
+    loadingModel.dispose();
   }
 
   /// Action blocks are added here.
