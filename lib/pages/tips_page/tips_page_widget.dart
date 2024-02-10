@@ -91,104 +91,105 @@ class _TipsPageWidgetState extends State<TipsPageWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                      child: TextFormField(
-                        controller: _model.searchController,
-                        focusNode: _model.searchFocusNode,
-                        onFieldSubmitted: (_) async {
-                          await _model.searchTips(context);
-                        },
-                        autofocus: true,
-                        textInputAction: TextInputAction.done,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Search for your tips...',
-                          labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                          hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).alternate,
-                              width: 2.0,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                        child: TextFormField(
+                          controller: _model.searchController,
+                          focusNode: _model.searchFocusNode,
+                          onFieldSubmitted: (_) async {
+                            await _model.searchTips(context);
+                          },
+                          autofocus: true,
+                          textInputAction: TextInputAction.done,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Search for your tips...',
+                            labelStyle:
+                                FlutterFlowTheme.of(context).labelMedium,
+                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primary,
-                              width: 2.0,
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          errorBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).error,
-                              width: 2.0,
+                            errorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          focusedErrorBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).error,
-                              width: 2.0,
+                            focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            borderRadius: BorderRadius.circular(8.0),
                           ),
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          validator: _model.searchControllerValidator
+                              .asValidator(context),
                         ),
-                        style: FlutterFlowTheme.of(context).bodyMedium,
-                        validator: _model.searchControllerValidator
-                            .asValidator(context),
                       ),
                     ),
-                  ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      await _model.searchTips(context);
-                    },
-                    child: Icon(
-                      Icons.search,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 24.0,
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        await _model.searchTips(context);
+                      },
+                      child: Icon(
+                        Icons.search,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 24.0,
+                      ),
                     ),
+                  ],
+                ),
+                if (_model.isLoading)
+                  wrapWithModel(
+                    model: _model.loadingModel,
+                    updateCallback: () => setState(() {}),
+                    child: const LoadingWidget(),
                   ),
-                ],
-              ),
-              if (_model.isLoading)
-                wrapWithModel(
-                  model: _model.loadingModel,
-                  updateCallback: () => setState(() {}),
-                  child: const LoadingWidget(),
-                ),
-              if (_model.tips == '-')
-                Lottie.asset(
-                  'assets/lottie_animations/cat_chat.json',
-                  width: 150.0,
-                  height: 130.0,
-                  fit: BoxFit.fitHeight,
-                  animate: true,
-                ),
-              if (_model.tips != '-')
-                Expanded(
-                  child: Text(
+                if (_model.tips == '-')
+                  Lottie.asset(
+                    'assets/lottie_animations/cat_chat.json',
+                    width: 150.0,
+                    height: 130.0,
+                    fit: BoxFit.fitHeight,
+                    animate: true,
+                  ),
+                if (_model.tips != '-')
+                  Text(
                     _model.tips,
                     textAlign: TextAlign.justify,
                     style: FlutterFlowTheme.of(context).bodyMedium,
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
