@@ -408,18 +408,6 @@ class _CameraWidgetState extends State<CameraWidget> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    if (_model.isProcessed &&
-                                        (_model.imageUrl != ''))
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        child: Image.network(
-                                          'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
-                                          width: 250.0,
-                                          height: 120.0,
-                                          fit: BoxFit.fitWidth,
-                                        ),
-                                      ),
                                     Text(
                                       'Products Recommended',
                                       textAlign: TextAlign.center,
