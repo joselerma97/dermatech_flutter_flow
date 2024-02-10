@@ -286,6 +286,8 @@ class _CameraWidgetState extends State<CameraWidget> {
                                   .isIssue(_model.imagePredictions.toList())) {
                                 return Column(
                                   mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
                                     Text(
                                       'We recommend you to go to a doctor. There are some good options:',
