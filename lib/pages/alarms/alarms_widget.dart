@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/components/add_alarm/add_alarm_widget.dart';
 import '/pages/components/empty/empty_widget.dart';
+import '/pages/components/loading/loading_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -148,17 +149,11 @@ class _AlarmsWidgetState extends State<AlarmsWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               if (_model.isLoading)
-                Align(
-                  alignment: const AlignmentDirectional(0.0, -1.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      'assets/images/loading.gif',
-                      width: 300.0,
-                      height: 200.0,
-                      fit: BoxFit.fitWidth,
-                      alignment: const Alignment(0.0, 0.0),
-                    ),
+                Expanded(
+                  child: wrapWithModel(
+                    model: _model.loadingModel,
+                    updateCallback: () => setState(() {}),
+                    child: const LoadingWidget(),
                   ),
                 ),
               if (!_model.isLoading)

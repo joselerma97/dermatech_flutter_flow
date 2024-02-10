@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/pages/components/loading/loading_widget.dart';
 import 'recommendation_widget.dart' show RecommendationWidget;
 import 'package:flutter/material.dart';
 
@@ -31,17 +32,23 @@ class RecommendationModel extends FlutterFlowModel<RecommendationWidget> {
   FocusNode? searchFocusNode;
   TextEditingController? searchController;
   String? Function(BuildContext, String?)? searchControllerValidator;
+  // Model for loading component.
+  late LoadingModel loadingModel;
 
   /// Initialization and disposal methods.
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    loadingModel = createModel(context, () => LoadingModel());
+  }
 
   @override
   void dispose() {
     unfocusNode.dispose();
     searchFocusNode?.dispose();
     searchController?.dispose();
+
+    loadingModel.dispose();
   }
 
   /// Action blocks are added here.

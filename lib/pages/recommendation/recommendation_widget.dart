@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/components/empty/empty_widget.dart';
+import '/pages/components/loading/loading_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -91,7 +92,7 @@ class _RecommendationWidgetState extends State<RecommendationWidget> {
         body: SafeArea(
           top: true,
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 'Use the power of AI to search the best product recommendation of skin care',
@@ -174,13 +175,11 @@ class _RecommendationWidgetState extends State<RecommendationWidget> {
                 ],
               ),
               if (_model.isLoadingData)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    'assets/images/loading.gif',
-                    width: 300.0,
-                    height: 200.0,
-                    fit: BoxFit.cover,
+                Expanded(
+                  child: wrapWithModel(
+                    model: _model.loadingModel,
+                    updateCallback: () => setState(() {}),
+                    child: const LoadingWidget(),
                   ),
                 ),
               if (!_model.isLoadingData)

@@ -198,6 +198,37 @@ class GetAlarmsInfoCall {
           .toList();
 }
 
+class FullPredictionCall {
+  static Future<ApiCallResponse> call({
+    FFUploadedFile? uploadedFile,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'fullPrediction',
+      apiUrl: 'https://dermatechserver.cloud/skin/type/full_prediction',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {
+        'uploaded_file': uploadedFile,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static dynamic imageName(dynamic response) => getJsonField(
+        response,
+        r'''$.img_name''',
+      );
+  static dynamic predResult(dynamic response) => getJsonField(
+        response,
+        r'''$.pred_result''',
+      );
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

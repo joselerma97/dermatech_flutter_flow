@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/pages/components/loading/loading_widget.dart';
 import 'alarms_widget.dart' show AlarmsWidget;
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,8 @@ class AlarmsModel extends FlutterFlowModel<AlarmsWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for loading component.
+  late LoadingModel loadingModel;
   // Stores action output result for [Backend Call - API (deleteAlarm)] action in delete widget.
   ApiCallResponse? status;
   // Stores action output result for [Alert Dialog - Custom Dialog] action in FloatingActionButton widget.
@@ -30,11 +33,14 @@ class AlarmsModel extends FlutterFlowModel<AlarmsWidget> {
   /// Initialization and disposal methods.
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    loadingModel = createModel(context, () => LoadingModel());
+  }
 
   @override
   void dispose() {
     unfocusNode.dispose();
+    loadingModel.dispose();
   }
 
   /// Action blocks are added here.
