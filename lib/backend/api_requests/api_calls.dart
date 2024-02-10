@@ -350,6 +350,31 @@ class RememberPasswordCall {
       ));
 }
 
+class LogOutCall {
+  static Future<ApiCallResponse> call({
+    String? deviceId = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'logOut',
+      apiUrl:
+          'https://dermatechserver.cloud/dermatech/device/remove/$deviceId',
+      callType: ApiCallType.DELETE,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static dynamic status(dynamic response) => getJsonField(
+        response,
+        r'''$.status''',
+      );
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
