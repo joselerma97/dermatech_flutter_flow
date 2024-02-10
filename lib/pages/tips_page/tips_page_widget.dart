@@ -185,7 +185,7 @@ class _TipsPageWidgetState extends State<TipsPageWidget> {
                 if (_model.tips != '-')
                   Text(
                     _model.tips,
-                    textAlign: TextAlign.justify,
+                    textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).bodyMedium,
                   ),
               ],
