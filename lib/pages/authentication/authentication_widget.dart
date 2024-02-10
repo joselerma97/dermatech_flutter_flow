@@ -278,17 +278,18 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                                               '') &&
                                           (_model.passwordController.text !=
                                               '')) {
-                                        _model.apiResult1fc =
+                                        _model.authenticationResult =
                                             await AuthenticationCall.call(
                                           email: _model
                                               .emailAddressController.text,
                                           password:
                                               _model.passwordController.text,
                                         );
-                                        if ((_model.apiResult1fc?.succeeded ??
+                                        if ((_model.authenticationResult
+                                                ?.succeeded ??
                                             true)) {
                                           if (AuthenticationCall.userId(
-                                                (_model.apiResult1fc
+                                                (_model.authenticationResult
                                                         ?.jsonBody ??
                                                     ''),
                                               ) !=
@@ -296,7 +297,7 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                                             setState(() {
                                               FFAppState().userIdServer =
                                                   AuthenticationCall.userId(
-                                                (_model.apiResult1fc
+                                                (_model.authenticationResult
                                                         ?.jsonBody ??
                                                     ''),
                                               )!;
@@ -307,7 +308,11 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                                             );
                                             setState(() {
                                               FFAppState().deviceIdServer =
-                                                  FFAppState().deviceIdServer;
+                                                  AuthenticationCall.deviceId(
+                                                (_model.authenticationResult
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              )!;
                                             });
                                             await actions.setInternalData(
                                               FFAppConstants.deviceTag,
@@ -477,6 +482,24 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                                           ),
                                         );
                                       } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Sending Password...',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                const Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
                                         _model.apiResulthpl =
                                             await RememberPasswordCall.call(
                                           email: _model

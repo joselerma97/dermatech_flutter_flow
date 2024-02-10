@@ -369,10 +369,10 @@ class LogOutCall {
     );
   }
 
-  static dynamic status(dynamic response) => getJsonField(
+  static bool? status(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.status''',
-      );
+      ));
 }
 
 class ApiPagingParams {
