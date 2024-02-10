@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
@@ -28,7 +29,18 @@ Future logOut(BuildContext context) async {
     await actions.removeInternalData(
       FFAppConstants.userTag,
     );
+    await LogOutCall.call(
+      deviceId: FFAppState().deviceIdServer,
+    );
+    FFAppState().update(() {
+      FFAppState().deviceIdServer = '';
+    });
+    await actions.removeInternalData(
+      FFAppConstants.deviceTag,
+    );
 
     context.goNamed('Welcome');
+  } else {
+    return;
   }
 }
