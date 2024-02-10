@@ -164,35 +164,6 @@ class _CameraWidgetState extends State<CameraWidget> {
                       setState(() {
                         _model.isProcessed = true;
                       });
-                      if (functions.isIssue(_model.imagePredictions.toList())) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Has Issuses',
-                              style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
-                            duration: const Duration(milliseconds: 4000),
-                            backgroundColor:
-                                FlutterFlowTheme.of(context).secondary,
-                          ),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Does not has issues',
-                              style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
-                            duration: const Duration(milliseconds: 4000),
-                            backgroundColor:
-                                FlutterFlowTheme.of(context).secondary,
-                          ),
-                        );
-                      }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -277,41 +248,62 @@ class _CameraWidgetState extends State<CameraWidget> {
                             ],
                           );
                         } else {
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (_model.isProcessed && (_model.imageUrl != ''))
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.network(
-                                    'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
-                                    width: 300.0,
-                                    height: 200.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              if (_model.isProcessed)
-                                Builder(
-                                  builder: (context) {
-                                    final info =
-                                        _model.imagePredictions.toList();
-                                    return ListView.builder(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: info.length,
-                                      itemBuilder: (context, infoIndex) {
-                                        final infoItem = info[infoIndex];
-                                        return Text(
-                                          infoItem,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium,
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                            ],
+                          return Builder(
+                            builder: (context) {
+                              if (functions
+                                  .isIssue(_model.imagePredictions.toList())) {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      'Go to a doctor',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    if (_model.isProcessed &&
+                                        (_model.imageUrl != ''))
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.network(
+                                          'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
+                                          width: 300.0,
+                                          height: 200.0,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    if (_model.isProcessed)
+                                      Builder(
+                                        builder: (context) {
+                                          final info =
+                                              _model.imagePredictions.toList();
+                                          return ListView.builder(
+                                            padding: EdgeInsets.zero,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount: info.length,
+                                            itemBuilder: (context, infoIndex) {
+                                              final infoItem = info[infoIndex];
+                                              return Text(
+                                                infoItem,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium,
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                  ],
+                                );
+                              }
+                            },
                           );
                         }
                       },
