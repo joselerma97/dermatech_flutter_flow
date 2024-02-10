@@ -218,7 +218,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                   ),
                 ),
               if (_model.isLoading)
-                Expanded(
+                Flexible(
                   child: wrapWithModel(
                     model: _model.loadingModel,
                     updateCallback: () => setState(() {}),
@@ -253,7 +253,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                               if (functions
                                   .isIssue(_model.imagePredictions.toList())) {
                                 return Column(
-                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(
                                       'Go to the doctor',
@@ -264,7 +264,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                 );
                               } else {
                                 return Column(
-                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     if (_model.isProcessed &&
                                         (_model.imageUrl != ''))
