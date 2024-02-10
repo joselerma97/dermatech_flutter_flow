@@ -58,6 +58,7 @@ class TipsPageModel extends FlutterFlowModel<TipsPageWidget> {
       );
     } else {
       isLoading = true;
+      FFAppState().update(() {});
       apiResultwtn = await GetTipsCall.call(
         prompt: searchController.text,
       );
