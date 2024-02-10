@@ -7,6 +7,7 @@ import '/flutter_flow/upload_data.dart';
 import '/pages/components/loading/loading_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
@@ -310,15 +311,24 @@ class _CameraWidgetState extends State<CameraWidget> {
                                             return Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  child: Image.network(
-                                                    doctorInfoItem.icon,
-                                                    width: 60.0,
-                                                    height: 40.0,
-                                                    fit: BoxFit.cover,
+                                                Flexible(
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                    child: CachedNetworkImage(
+                                                      fadeInDuration: const Duration(
+                                                          milliseconds: 500),
+                                                      fadeOutDuration: const Duration(
+                                                          milliseconds: 500),
+                                                      imageUrl:
+                                                          doctorInfoItem.icon,
+                                                      width: 50.0,
+                                                      height: 35.0,
+                                                      fit: BoxFit.fitWidth,
+                                                      alignment:
+                                                          const Alignment(-1.0, -1.0),
+                                                    ),
                                                   ),
                                                 ),
                                                 Text(
