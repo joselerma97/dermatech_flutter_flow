@@ -5,6 +5,7 @@ import '/pages/components/loading/loading_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'recommendation_model.dart';
 export 'recommendation_model.dart';
@@ -175,12 +176,18 @@ class _RecommendationWidgetState extends State<RecommendationWidget> {
                 ],
               ),
               if (_model.isLoadingData)
-                Expanded(
-                  child: wrapWithModel(
-                    model: _model.loadingModel,
-                    updateCallback: () => setState(() {}),
-                    child: const LoadingWidget(),
-                  ),
+                wrapWithModel(
+                  model: _model.loadingModel,
+                  updateCallback: () => setState(() {}),
+                  child: const LoadingWidget(),
+                ),
+              if (_model.productRecommendation.isEmpty)
+                Lottie.asset(
+                  'assets/lottie_animations/cat_computer.json',
+                  width: 150.0,
+                  height: 130.0,
+                  fit: BoxFit.cover,
+                  animate: true,
                 ),
               if (!_model.isLoadingData)
                 Expanded(
