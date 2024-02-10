@@ -23,6 +23,8 @@ class CameraModel extends FlutterFlowModel<CameraWidget> {
 
   bool isProcessed = false;
 
+  bool isPhotoUploaded = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
