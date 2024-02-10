@@ -4,6 +4,8 @@ import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 
 Future logOut(BuildContext context) async {
+  ApiCallResponse? statusLogout;
+
   var confirmDialogResponse = await showDialog<bool>(
         context: context,
         builder: (alertDialogContext) {
@@ -29,7 +31,7 @@ Future logOut(BuildContext context) async {
     await actions.removeInternalData(
       FFAppConstants.userTag,
     );
-    await LogOutCall.call(
+    statusLogout = await LogOutCall.call(
       deviceId: FFAppState().deviceIdServer,
     );
     FFAppState().update(() {
