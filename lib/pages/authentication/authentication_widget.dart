@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -300,6 +301,10 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                                                     ''),
                                               )!;
                                             });
+                                            await actions.setInternalData(
+                                              FFAppConstants.userTag,
+                                              FFAppState().userIdServer,
+                                            );
 
                                             context.goNamed('Camera');
                                           } else {
