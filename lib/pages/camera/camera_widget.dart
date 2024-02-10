@@ -401,7 +401,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                 );
                               } else {
                                 return Column(
-                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisSize: MainAxisSize.max,
                                   children: [
                                     if (_model.isProcessed &&
                                         (_model.imageUrl != ''))
@@ -451,11 +451,18 @@ class _CameraWidgetState extends State<CameraWidget> {
                                       builder: (context) {
                                         final product =
                                             _model.productInfo.toList();
-                                        return ListView.builder(
-                                          padding: EdgeInsets.zero,
+                                        return ListView.separated(
+                                          padding: const EdgeInsets.fromLTRB(
+                                            0,
+                                            10.0,
+                                            0,
+                                            0,
+                                          ),
                                           shrinkWrap: true,
                                           scrollDirection: Axis.vertical,
                                           itemCount: product.length,
+                                          separatorBuilder: (_, __) =>
+                                              const SizedBox(height: 10.0),
                                           itemBuilder: (context, productIndex) {
                                             final productItem =
                                                 product[productIndex];
