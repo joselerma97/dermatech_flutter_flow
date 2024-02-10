@@ -7,6 +7,7 @@ import '/pages/components/loading/loading_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'camera_model.dart';
 export 'camera_model.dart';
@@ -137,6 +138,9 @@ class _CameraWidgetState extends State<CameraWidget> {
                       }
                     }
 
+                    setState(() {
+                      _model.isPhotoUploaded = true;
+                    });
                     _model.apiResult4c6 = await FullPredictionCall.call(
                       uploadedFile: _model.uploadedLocalFile,
                     );
@@ -199,7 +203,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                   ),
                 ),
               ),
-              if (!_model.isProcessed)
+              if (!_model.isProcessed && _model.isPhotoUploaded)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.memory(
@@ -217,35 +221,79 @@ class _CameraWidgetState extends State<CameraWidget> {
                     child: const LoadingWidget(),
                   ),
                 ),
-              if (_model.isProcessed)
-                Builder(
-                  builder: (context) {
-                    final info = _model.imagePredictions.toList();
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: info.length,
-                      itemBuilder: (context, infoIndex) {
-                        final infoItem = info[infoIndex];
-                        return Text(
-                          infoItem,
-                          style: FlutterFlowTheme.of(context).bodyMedium,
-                        );
+              Builder(
+                builder: (context) {
+                  if (_model.isProcessed) {
+                    return Builder(
+                      builder: (context) {
+                        if (_model.imagePredictions.isEmpty) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Lottie.asset(
+                                'assets/lottie_animations/no_data.json',
+                                width: 150.0,
+                                height: 130.0,
+                                fit: BoxFit.cover,
+                                animate: true,
+                              ),
+                              Text(
+                                'We do not found any issue. Take another picture to double check',
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              if (_model.isProcessed)
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.network(
+                                    'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
+                                    width: 300.0,
+                                    height: 200.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              if (_model.isProcessed)
+                                Builder(
+                                  builder: (context) {
+                                    final info =
+                                        _model.imagePredictions.toList();
+                                    return ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: info.length,
+                                      itemBuilder: (context, infoIndex) {
+                                        final infoItem = info[infoIndex];
+                                        return Text(
+                                          infoItem,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium,
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                            ],
+                          );
+                        }
                       },
                     );
-                  },
-                ),
-              if (_model.isProcessed)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
-                    width: 300.0,
-                    height: 200.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                  } else {
+                    return Lottie.asset(
+                      'assets/lottie_animations/cv_image.json',
+                      width: 150.0,
+                      height: 130.0,
+                      fit: BoxFit.cover,
+                      animate: true,
+                    );
+                  }
+                },
+              ),
             ],
           ),
         ),
