@@ -463,7 +463,7 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: Image.asset(
-                            'assets/images/logo.png',
+                            'assets/images/tech_skin_care.webp',
                           ).image,
                         ),
                         borderRadius: BorderRadius.circular(16.0),
