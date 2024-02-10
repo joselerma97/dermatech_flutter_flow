@@ -6,6 +6,8 @@ class WelcomeModel extends FlutterFlowModel<WelcomeWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Custom Action - readInternalData] action in Welcome widget.
+  String? internalUserId;
 
   /// Initialization and disposal methods.
 

@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 
 Future logOut(BuildContext context) async {
@@ -24,6 +25,9 @@ Future logOut(BuildContext context) async {
       false;
   if (confirmDialogResponse) {
     FFAppState().userIdServer = '';
+    await actions.removeInternalData(
+      FFAppConstants.userTag,
+    );
 
     context.goNamed('Welcome');
   }

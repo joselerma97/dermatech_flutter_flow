@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -363,6 +364,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             (_model.apiResultb9a?.jsonBody ?? ''),
                           )!;
                         });
+                        await actions.setInternalData(
+                          FFAppConstants.userTag,
+                          FFAppState().userIdServer,
+                        );
 
                         context.goNamed('Camera');
                       } else {
