@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/pages/components/empty/empty_widget.dart';
 import '/pages/components/loading/loading_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -96,6 +97,8 @@ class _CameraWidgetState extends State<CameraWidget> {
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Align(
                 alignment: const AlignmentDirectional(0.0, 0.0),
@@ -280,7 +283,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                     _model.uploadedLocalFile.bytes ?? Uint8List.fromList([]),
                     width: 300.0,
                     height: 200.0,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fitWidth,
                   ),
                 ),
               if (_model.isLoading)
@@ -402,10 +405,8 @@ class _CameraWidgetState extends State<CameraWidget> {
                               } else {
                                 return Column(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     if (_model.isProcessed &&
                                         (_model.imageUrl != ''))
@@ -420,124 +421,102 @@ class _CameraWidgetState extends State<CameraWidget> {
                                         ),
                                       ),
                                     Text(
-                                      'Issues Detected',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                    ),
-                                    if (_model.isProcessed)
-                                      Builder(
-                                        builder: (context) {
-                                          final info =
-                                              _model.imagePredictions.toList();
-                                          return ListView.builder(
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: info.length,
-                                            itemBuilder: (context, infoIndex) {
-                                              final infoItem = info[infoIndex];
-                                              return Text(
-                                                infoItem,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
-                                              );
-                                            },
-                                          );
-                                        },
-                                      ),
-                                    Text(
                                       'Products Recommended',
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium,
                                     ),
-                                    Builder(
-                                      builder: (context) {
-                                        final product =
-                                            _model.productInfo.toList();
-                                        return ListView.separated(
-                                          padding: const EdgeInsets.fromLTRB(
-                                            0,
-                                            10.0,
-                                            0,
-                                            0,
-                                          ),
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: product.length,
-                                          separatorBuilder: (_, __) =>
-                                              const SizedBox(height: 10.0),
-                                          itemBuilder: (context, productIndex) {
-                                            final productItem =
-                                                product[productIndex];
-                                            return Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Flexible(
-                                                  flex: 70,
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        productItem.title,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium,
-                                                      ),
-                                                      Text(
-                                                        productItem.rating,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium,
-                                                      ),
-                                                      Text(
-                                                        productItem.price,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Flexible(
-                                                  flex: 30,
-                                                  child: InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      await launchURL(
-                                                          productItem.link);
-                                                    },
-                                                    child: Icon(
-                                                      Icons.open_in_new,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryText,
-                                                      size: 24.0,
+                                    Align(
+                                      alignment:
+                                          const AlignmentDirectional(-1.0, -1.0),
+                                      child: Builder(
+                                        builder: (context) {
+                                          final product =
+                                              _model.productInfo.toList();
+                                          if (product.isEmpty) {
+                                            return const EmptyWidget();
+                                          }
+                                          return ListView.separated(
+                                            padding: const EdgeInsets.fromLTRB(
+                                              0,
+                                              0.0,
+                                              0,
+                                              0,
+                                            ),
+                                            primary: false,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount: product.length,
+                                            separatorBuilder: (_, __) =>
+                                                const SizedBox(height: 10.0),
+                                            itemBuilder:
+                                                (context, productIndex) {
+                                              final productItem =
+                                                  product[productIndex];
+                                              return Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Flexible(
+                                                    flex: 70,
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Text(
+                                                          productItem.title,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium,
+                                                        ),
+                                                        Text(
+                                                          productItem.rating,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium,
+                                                        ),
+                                                        Text(
+                                                          productItem.price,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium,
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
+                                                  Flexible(
+                                                    flex: 30,
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        await launchURL(
+                                                            productItem.link);
+                                                      },
+                                                      child: Icon(
+                                                        Icons.open_in_new,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 24.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ],
                                 );
