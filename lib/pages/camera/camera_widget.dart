@@ -404,9 +404,9 @@ class _CameraWidgetState extends State<CameraWidget> {
                                 );
                               } else {
                                 return Column(
-                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     if (_model.isProcessed &&
                                         (_model.imageUrl != ''))
@@ -415,8 +415,8 @@ class _CameraWidgetState extends State<CameraWidget> {
                                             BorderRadius.circular(8.0),
                                         child: Image.network(
                                           'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
-                                          width: 300.0,
-                                          height: 200.0,
+                                          width: 250.0,
+                                          height: 120.0,
                                           fit: BoxFit.fitWidth,
                                         ),
                                       ),
@@ -451,8 +451,9 @@ class _CameraWidgetState extends State<CameraWidget> {
                                             return Row(
                                               mainAxisSize: MainAxisSize.min,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Flexible(
                                                   flex: 70,
