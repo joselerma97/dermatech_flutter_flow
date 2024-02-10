@@ -402,6 +402,10 @@ class _CameraWidgetState extends State<CameraWidget> {
                               } else {
                                 return Column(
                                   mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
                                     if (_model.isProcessed &&
                                         (_model.imageUrl != ''))
