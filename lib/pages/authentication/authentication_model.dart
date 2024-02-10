@@ -18,6 +18,8 @@ class AuthenticationModel extends FlutterFlowModel<AuthenticationWidget> {
   String? Function(BuildContext, String?)? passwordControllerValidator;
   // Stores action output result for [Backend Call - API (authentication)] action in Button widget.
   ApiCallResponse? apiResult1fc;
+  // Stores action output result for [Backend Call - API (rememberPassword)] action in RichText widget.
+  ApiCallResponse? apiResulthpl;
 
   /// Initialization and disposal methods.
 

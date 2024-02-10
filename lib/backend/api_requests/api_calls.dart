@@ -44,6 +44,10 @@ class RegisterUserCall {
         response,
         r'''$.userId''',
       ));
+  static String? deviceId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.deviceId''',
+      ));
 }
 
 class AuthenticationCall {
@@ -75,6 +79,10 @@ class AuthenticationCall {
   static String? userId(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.userId''',
+      ));
+  static String? deviceId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.deviceId''',
       ));
 }
 
@@ -314,6 +322,31 @@ class GetTipsCall {
   static String? tips(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.tips''',
+      ));
+}
+
+class RememberPasswordCall {
+  static Future<ApiCallResponse> call({
+    String? email = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'rememberPassword',
+      apiUrl:
+          'https://dermatechserver.cloud/dermatech/remember/password/$email',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static bool? status(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.status''',
       ));
 }
 

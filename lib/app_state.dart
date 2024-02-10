@@ -25,4 +25,10 @@ class FFAppState extends ChangeNotifier {
   set userIdServer(String value) {
     _userIdServer = value;
   }
+
+  String _deviceIdServer = '';
+  String get deviceIdServer => _deviceIdServer;
+  set deviceIdServer(String value) {
+    _deviceIdServer = value;
+  }
 }

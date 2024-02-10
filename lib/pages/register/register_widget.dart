@@ -118,6 +118,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     controller: _model.emailController,
                     focusNode: _model.emailFocusNode,
                     autofocus: true,
+                    textInputAction: TextInputAction.next,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'Email',
@@ -164,6 +165,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     controller: _model.ageController,
                     focusNode: _model.ageFocusNode,
                     autofocus: true,
+                    textInputAction: TextInputAction.next,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'Age',
@@ -210,6 +212,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     controller: _model.nicknameController,
                     focusNode: _model.nicknameFocusNode,
                     autofocus: true,
+                    textInputAction: TextInputAction.next,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'Username',
@@ -293,6 +296,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     controller: _model.passwordController,
                     focusNode: _model.passwordFocusNode,
                     autofocus: true,
+                    textInputAction: TextInputAction.done,
                     obscureText: !_model.passwordVisibility,
                     decoration: InputDecoration(
                       labelText: 'Password',
@@ -367,6 +371,16 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         await actions.setInternalData(
                           FFAppConstants.userTag,
                           FFAppState().userIdServer,
+                        );
+                        setState(() {
+                          FFAppState().deviceIdServer =
+                              RegisterUserCall.deviceId(
+                            (_model.apiResultb9a?.jsonBody ?? ''),
+                          )!;
+                        });
+                        await actions.setInternalData(
+                          FFAppConstants.deviceTag,
+                          FFAppState().deviceIdServer,
                         );
 
                         context.goNamed('Camera');

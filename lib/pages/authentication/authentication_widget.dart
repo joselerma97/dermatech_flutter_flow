@@ -305,6 +305,14 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                                               FFAppConstants.userTag,
                                               FFAppState().userIdServer,
                                             );
+                                            setState(() {
+                                              FFAppState().deviceIdServer =
+                                                  FFAppState().deviceIdServer;
+                                            });
+                                            await actions.setInternalData(
+                                              FFAppConstants.deviceTag,
+                                              FFAppState().deviceIdServer,
+                                            );
 
                                             context.goNamed('Camera');
                                           } else {
@@ -420,6 +428,117 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                                           ),
                                           TextSpan(
                                             text: ' Sign Up here',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                          )
+                                        ],
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                                // You will have to add an action on this rich text to go to your login page.
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 12.0, 0.0, 12.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      if (_model.emailAddressController.text ==
+                                          '') {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Write your email please',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                const Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
+                                      } else {
+                                        _model.apiResulthpl =
+                                            await RememberPasswordCall.call(
+                                          email: _model
+                                              .emailAddressController.text,
+                                        );
+                                        if ((_model.apiResulthpl?.succeeded ??
+                                            true)) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Check your password in your email',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  const Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          );
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Server Error',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  const Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          );
+                                        }
+                                      }
+
+                                      setState(() {});
+                                    },
+                                    child: RichText(
+                                      textScaleFactor: MediaQuery.of(context)
+                                          .textScaleFactor,
+                                      text: TextSpan(
+                                        children: [
+                                          const TextSpan(
+                                            text:
+                                                'Don\'t remember your password? ',
+                                            style: TextStyle(),
+                                          ),
+                                          TextSpan(
+                                            text:
+                                                'Write your email and tap here',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
