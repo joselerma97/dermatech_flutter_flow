@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -164,6 +165,37 @@ class _CameraWidgetState extends State<CameraWidget> {
                       setState(() {
                         _model.isProcessed = true;
                       });
+                      if (functions.isIssue(_model.imagePredictions.toList())) {
+                        _model.getDoctorsApi = await GetDoctorsCall.call();
+                        if ((_model.getDoctorsApi?.succeeded ?? true)) {
+                          setState(() {
+                            _model.doctorsInfo = GetDoctorsCall.doctorsInfo(
+                              (_model.getDoctorsApi?.jsonBody ?? ''),
+                            )!
+                                .toList()
+                                .cast<DoctorsInfoStruct>();
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Server Error',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: const Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+                        }
+                      } else {
+                        setState(() {
+                          _model.doctorsInfo = [];
+                        });
+                      }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -256,9 +288,69 @@ class _CameraWidgetState extends State<CameraWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
-                                      'Go to a doctor',
+                                      'We recommend you to go to a doctor. There are some good options:',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium,
+                                    ),
+                                    Builder(
+                                      builder: (context) {
+                                        final doctorInfo =
+                                            _model.doctorsInfo.toList();
+                                        return ListView.builder(
+                                          padding: EdgeInsets.zero,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: doctorInfo.length,
+                                          itemBuilder:
+                                              (context, doctorInfoIndex) {
+                                            final doctorInfoItem =
+                                                doctorInfo[doctorInfoIndex];
+                                            return Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  child: Image.network(
+                                                    doctorInfoItem.icon,
+                                                    width: 60.0,
+                                                    height: 40.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  doctorInfoItem.name,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium,
+                                                ),
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    await launchURL(
+                                                        doctorInfoItem.url);
+                                                  },
+                                                  child: Icon(
+                                                    Icons.open_in_new,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 24.0,
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
                                     ),
                                   ],
                                 );
