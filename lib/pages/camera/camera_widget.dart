@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/pages/components/loading/loading_widget.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
@@ -163,6 +164,35 @@ class _CameraWidgetState extends State<CameraWidget> {
                       setState(() {
                         _model.isProcessed = true;
                       });
+                      if (functions.isIssue(_model.imagePredictions.toList())) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Has Issuses',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: const Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Does not has issues',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: const Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                      }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
