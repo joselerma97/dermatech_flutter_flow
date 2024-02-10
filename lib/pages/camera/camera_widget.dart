@@ -283,7 +283,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                     _model.uploadedLocalFile.bytes ?? Uint8List.fromList([]),
                     width: 300.0,
                     height: 200.0,
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.cover,
                   ),
                 ),
               if (_model.isLoading)
@@ -331,79 +331,85 @@ class _CameraWidgetState extends State<CameraWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium,
                                       ),
-                                      Builder(
-                                        builder: (context) {
-                                          final doctorInfo =
-                                              _model.doctorsInfo.toList();
-                                          return ListView.builder(
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: doctorInfo.length,
-                                            itemBuilder:
-                                                (context, doctorInfoIndex) {
-                                              final doctorInfoItem =
-                                                  doctorInfo[doctorInfoIndex];
-                                              return Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Flexible(
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: CachedNetworkImage(
-                                                        fadeInDuration:
-                                                            const Duration(
-                                                                milliseconds:
-                                                                    500),
-                                                        fadeOutDuration:
-                                                            const Duration(
-                                                                milliseconds:
-                                                                    500),
-                                                        imageUrl:
-                                                            doctorInfoItem.icon,
-                                                        width: 60.0,
-                                                        height: 40.0,
-                                                        fit: BoxFit.fitWidth,
-                                                        alignment: const Alignment(
-                                                            -1.0, -1.0),
+                                      Expanded(
+                                        child: Builder(
+                                          builder: (context) {
+                                            final doctorInfo =
+                                                _model.doctorsInfo.toList();
+                                            return ListView.builder(
+                                              padding: EdgeInsets.zero,
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.vertical,
+                                              itemCount: doctorInfo.length,
+                                              itemBuilder:
+                                                  (context, doctorInfoIndex) {
+                                                final doctorInfoItem =
+                                                    doctorInfo[doctorInfoIndex];
+                                                return Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Flexible(
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          fadeInDuration:
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      500),
+                                                          fadeOutDuration:
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      500),
+                                                          imageUrl:
+                                                              doctorInfoItem
+                                                                  .icon,
+                                                          width: 60.0,
+                                                          height: 40.0,
+                                                          fit: BoxFit.fitWidth,
+                                                          alignment: const Alignment(
+                                                              -1.0, -1.0),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    doctorInfoItem.name,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium,
-                                                  ),
-                                                  InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      await launchURL(
-                                                          doctorInfoItem.url);
-                                                    },
-                                                    child: Icon(
-                                                      Icons.open_in_new,
-                                                      color:
+                                                    Text(
+                                                      doctorInfoItem.name,
+                                                      style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .secondaryText,
-                                                      size: 24.0,
+                                                              .bodyMedium,
                                                     ),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        },
+                                                    InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        await launchURL(
+                                                            doctorInfoItem.url);
+                                                      },
+                                                      child: Icon(
+                                                        Icons.open_in_new,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 24.0,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ],
                                   );
@@ -423,7 +429,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                             'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
                                             width: 250.0,
                                             height: 120.0,
-                                            fit: BoxFit.fitWidth,
+                                            fit: BoxFit.fitHeight,
                                           ),
                                         ),
                                       Text(
