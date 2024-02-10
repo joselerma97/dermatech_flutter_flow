@@ -146,9 +146,12 @@ class _CameraWidgetState extends State<CameraWidget> {
                     );
                     if ((_model.apiResult4c6?.succeeded ?? true)) {
                       setState(() {
-                        _model.imageUrl = FullPredictionCall.imageName(
-                          (_model.apiResult4c6?.jsonBody ?? ''),
-                        ).toString();
+                        _model.imageUrl = valueOrDefault<String>(
+                          FullPredictionCall.imageName(
+                            (_model.apiResult4c6?.jsonBody ?? ''),
+                          ).toString(),
+                          '*',
+                        );
                       });
                       setState(() {
                         _model.imagePredictions = FullPredictionCall.predResult(
@@ -202,6 +205,13 @@ class _CameraWidgetState extends State<CameraWidget> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
+              ),
+              Text(
+                valueOrDefault<String>(
+                  _model.imageUrl,
+                  '-',
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium,
               ),
               if (!_model.isProcessed && _model.isPhotoUploaded)
                 ClipRRect(

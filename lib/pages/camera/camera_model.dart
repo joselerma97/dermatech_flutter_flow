@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class CameraModel extends FlutterFlowModel<CameraWidget> {
   ///  Local state fields for this page.
 
-  String imageUrl = '*';
+  String? imageUrl = '*';
 
   List<String> imagePredictions = [];
   void addToImagePredictions(String item) => imagePredictions.add(item);
