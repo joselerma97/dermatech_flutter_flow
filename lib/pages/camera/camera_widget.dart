@@ -416,11 +416,12 @@ class _CameraWidgetState extends State<CameraWidget> {
                                           'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
                                           width: 300.0,
                                           height: 200.0,
-                                          fit: BoxFit.cover,
+                                          fit: BoxFit.fitWidth,
                                         ),
                                       ),
                                     Text(
                                       'Issues Detected',
+                                      textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium,
                                     ),
@@ -448,6 +449,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                       ),
                                     Text(
                                       'Products Recommended',
+                                      textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium,
                                     ),
