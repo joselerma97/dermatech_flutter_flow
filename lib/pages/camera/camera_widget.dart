@@ -247,7 +247,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              if (_model.isProcessed)
+                              if (_model.isProcessed && (_model.imageUrl != ''))
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
                                   child: Image.network(
