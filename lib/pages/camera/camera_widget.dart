@@ -192,10 +192,43 @@ class _CameraWidgetState extends State<CameraWidget> {
                             ),
                           );
                         }
+
+                        setState(() {
+                          _model.productInfo = [];
+                        });
                       } else {
                         setState(() {
                           _model.doctorsInfo = [];
                         });
+                        _model.productsResults =
+                            await GetProductRecommendationByScanCall.call(
+                          issuesList: _model.imagePredictions,
+                        );
+                        if ((_model.productsResults?.succeeded ?? true)) {
+                          setState(() {
+                            _model.productInfo =
+                                GetProductRecommendationByScanCall.products(
+                              (_model.productsResults?.jsonBody ?? ''),
+                            )!
+                                    .toList()
+                                    .cast<ProductInfoStruct>();
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Server Error',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: const Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+                        }
                       }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -382,6 +415,11 @@ class _CameraWidgetState extends State<CameraWidget> {
                                           fit: BoxFit.cover,
                                         ),
                                       ),
+                                    Text(
+                                      'Issues Detected',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
                                     if (_model.isProcessed)
                                       Builder(
                                         builder: (context) {
@@ -404,6 +442,90 @@ class _CameraWidgetState extends State<CameraWidget> {
                                           );
                                         },
                                       ),
+                                    Text(
+                                      'Products Recommended',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                    Builder(
+                                      builder: (context) {
+                                        final product =
+                                            _model.productInfo.toList();
+                                        return ListView.builder(
+                                          padding: EdgeInsets.zero,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: product.length,
+                                          itemBuilder: (context, productIndex) {
+                                            final productItem =
+                                                product[productIndex];
+                                            return Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Flexible(
+                                                  flex: 70,
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        productItem.title,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium,
+                                                      ),
+                                                      Text(
+                                                        productItem.rating,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium,
+                                                      ),
+                                                      Text(
+                                                        productItem.price,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  flex: 30,
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await launchURL(
+                                                          productItem.link);
+                                                    },
+                                                    child: Icon(
+                                                      Icons.open_in_new,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      size: 24.0,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
                                   ],
                                 );
                               }

@@ -257,6 +257,40 @@ class GetDoctorsCall {
           .toList();
 }
 
+class GetProductRecommendationByScanCall {
+  static Future<ApiCallResponse> call({
+    List<String>? issuesList,
+  }) async {
+    final issues = _serializeList(issuesList);
+
+    final ffApiRequestBody = issues;
+    return ApiManager.instance.makeApiCall(
+      callName: 'getProductRecommendationByScan',
+      apiUrl: 'https://dermatechserver.cloud/products/img/scan',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List<ProductInfoStruct>? products(dynamic response) => (getJsonField(
+        response,
+        r'''$.products''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => ProductInfoStruct.maybeFromMap(x))
+          .withoutNulls
+          .toList();
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

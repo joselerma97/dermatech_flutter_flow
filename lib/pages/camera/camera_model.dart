@@ -37,6 +37,17 @@ class CameraModel extends FlutterFlowModel<CameraWidget> {
           int index, Function(DoctorsInfoStruct) updateFn) =>
       doctorsInfo[index] = updateFn(doctorsInfo[index]);
 
+  List<ProductInfoStruct> productInfo = [];
+  void addToProductInfo(ProductInfoStruct item) => productInfo.add(item);
+  void removeFromProductInfo(ProductInfoStruct item) =>
+      productInfo.remove(item);
+  void removeAtIndexFromProductInfo(int index) => productInfo.removeAt(index);
+  void insertAtIndexInProductInfo(int index, ProductInfoStruct item) =>
+      productInfo.insert(index, item);
+  void updateProductInfoAtIndex(
+          int index, Function(ProductInfoStruct) updateFn) =>
+      productInfo[index] = updateFn(productInfo[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -48,6 +59,8 @@ class CameraModel extends FlutterFlowModel<CameraWidget> {
   ApiCallResponse? apiResult4c6;
   // Stores action output result for [Backend Call - API (getDoctors)] action in Button widget.
   ApiCallResponse? getDoctorsApi;
+  // Stores action output result for [Backend Call - API (getProductRecommendationByScan)] action in Button widget.
+  ApiCallResponse? productsResults;
   // Model for loading component.
   late LoadingModel loadingModel;
 
