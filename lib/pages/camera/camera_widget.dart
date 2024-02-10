@@ -323,8 +323,8 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                           milliseconds: 500),
                                                       imageUrl:
                                                           doctorInfoItem.icon,
-                                                      width: 50.0,
-                                                      height: 35.0,
+                                                      width: 60.0,
+                                                      height: 40.0,
                                                       fit: BoxFit.fitWidth,
                                                       alignment:
                                                           const Alignment(-1.0, -1.0),
