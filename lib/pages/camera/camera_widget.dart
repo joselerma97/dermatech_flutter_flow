@@ -497,10 +497,10 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.center,
                                                   children: [
-                                                    Flexible(
-                                                      flex: 70,
+                                                    Expanded(
+                                                      flex: 2,
                                                       child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -526,8 +526,8 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                         ],
                                                       ),
                                                     ),
-                                                    Flexible(
-                                                      flex: 30,
+                                                    Expanded(
+                                                      flex: 1,
                                                       child: InkWell(
                                                         splashColor:
                                                             Colors.transparent,
@@ -566,12 +566,17 @@ class _CameraWidgetState extends State<CameraWidget> {
                         },
                       );
                     } else {
-                      return Lottie.asset(
-                        'assets/lottie_animations/cv_image.json',
-                        width: 150.0,
-                        height: 130.0,
-                        fit: BoxFit.cover,
-                        animate: true,
+                      return Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Lottie.asset(
+                            'assets/lottie_animations/cv_image.json',
+                            width: 150.0,
+                            height: 130.0,
+                            fit: BoxFit.cover,
+                            animate: true,
+                          ),
+                        ],
                       );
                     }
                   },
