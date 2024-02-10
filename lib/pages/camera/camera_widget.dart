@@ -566,12 +566,17 @@ class _CameraWidgetState extends State<CameraWidget> {
                         },
                       );
                     } else {
-                      return Lottie.asset(
-                        'assets/lottie_animations/cv_image.json',
-                        width: 150.0,
-                        height: 130.0,
-                        fit: BoxFit.cover,
-                        animate: true,
+                      return Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Lottie.asset(
+                            'assets/lottie_animations/cv_image.json',
+                            width: 150.0,
+                            height: 130.0,
+                            fit: BoxFit.cover,
+                            animate: true,
+                          ),
+                        ],
                       );
                     }
                   },

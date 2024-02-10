@@ -291,6 +291,32 @@ class GetProductRecommendationByScanCall {
           .toList();
 }
 
+class GetTipsCall {
+  static Future<ApiCallResponse> call({
+    String? prompt = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getTips',
+      apiUrl: 'https://dermatechserver.cloud/products/tips/',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'prompt': prompt,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? tips(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.tips''',
+      ));
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

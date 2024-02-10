@@ -73,6 +73,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'Recommendation')
               : const RecommendationWidget(),
+        ),
+        FFRoute(
+          name: 'TipsPage',
+          path: '/tipsPage',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'TipsPage')
+              : const TipsPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

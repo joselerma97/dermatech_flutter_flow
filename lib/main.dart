@@ -111,6 +111,7 @@ class _NavBarPageState extends State<NavBarPage> {
     final tabs = {
       'Camera': const CameraWidget(),
       'Recommendation': const RecommendationWidget(),
+      'TipsPage': const TipsPageWidget(),
       'Alarms': const AlarmsWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
@@ -144,6 +145,14 @@ class _NavBarPageState extends State<NavBarPage> {
               size: 24.0,
             ),
             label: 'Recommendations',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.school,
+              size: 24.0,
+            ),
+            label: 'Home',
             tooltip: '',
           ),
           BottomNavigationBarItem(
