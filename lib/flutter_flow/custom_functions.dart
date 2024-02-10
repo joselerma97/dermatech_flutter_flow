@@ -11,14 +11,14 @@ import 'uploaded_file.dart';
 import '/backend/schema/structs/index.dart';
 
 bool isIssue(List<String> predictions) {
-  List<String> illness = ["acne"];
+  List<String> illness = ['acne', 'melanoma'];
 
   // Convert lists to sets
-  Set<int> set1 = Set.from(predictions);
-  Set<int> set2 = Set.from(illness);
+  Set<String> set1 = Set.from(predictions);
+  Set<String> set2 = Set.from(illness);
 
   // Intersect sets
-  Set<int> intersection = set1.intersection(set2);
+  Set<String> intersection = set1.intersection(set2);
 
   // Check if intersection is not empty
   return intersection.isNotEmpty;
