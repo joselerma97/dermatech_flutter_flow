@@ -287,195 +287,97 @@ class _CameraWidgetState extends State<CameraWidget> {
                   ),
                 ),
               if (_model.isLoading)
-                Flexible(
-                  child: wrapWithModel(
-                    model: _model.loadingModel,
-                    updateCallback: () => setState(() {}),
-                    child: const LoadingWidget(),
-                  ),
+                wrapWithModel(
+                  model: _model.loadingModel,
+                  updateCallback: () => setState(() {}),
+                  child: const LoadingWidget(),
                 ),
-              Builder(
-                builder: (context) {
-                  if (_model.isProcessed) {
-                    return Builder(
-                      builder: (context) {
-                        if (_model.imagePredictions.isEmpty) {
-                          return Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Lottie.asset(
-                                'assets/lottie_animations/no_data.json',
-                                width: 150.0,
-                                height: 130.0,
-                                fit: BoxFit.cover,
-                                animate: true,
-                              ),
-                              Text(
-                                'We do not found any issue. Take another picture to double check',
-                                style: FlutterFlowTheme.of(context).bodyMedium,
-                              ),
-                            ],
-                          );
-                        } else {
-                          return Builder(
-                            builder: (context) {
-                              if (functions
-                                  .isIssue(_model.imagePredictions.toList())) {
-                                return Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text(
-                                      'We recommend you to go to a doctor. There are some good options:',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                    ),
-                                    Builder(
-                                      builder: (context) {
-                                        final doctorInfo =
-                                            _model.doctorsInfo.toList();
-                                        return ListView.builder(
-                                          padding: EdgeInsets.zero,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: doctorInfo.length,
-                                          itemBuilder:
-                                              (context, doctorInfoIndex) {
-                                            final doctorInfoItem =
-                                                doctorInfo[doctorInfoIndex];
-                                            return Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Flexible(
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    child: CachedNetworkImage(
-                                                      fadeInDuration: const Duration(
-                                                          milliseconds: 500),
-                                                      fadeOutDuration: const Duration(
-                                                          milliseconds: 500),
-                                                      imageUrl:
-                                                          doctorInfoItem.icon,
-                                                      width: 60.0,
-                                                      height: 40.0,
-                                                      fit: BoxFit.fitWidth,
-                                                      alignment:
-                                                          const Alignment(-1.0, -1.0),
+              Expanded(
+                child: Builder(
+                  builder: (context) {
+                    if (_model.isProcessed) {
+                      return Builder(
+                        builder: (context) {
+                          if (_model.imagePredictions.isEmpty) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Lottie.asset(
+                                  'assets/lottie_animations/no_data.json',
+                                  width: 150.0,
+                                  height: 130.0,
+                                  fit: BoxFit.cover,
+                                  animate: true,
+                                ),
+                                Text(
+                                  'We do not found any issue. Take another picture to double check',
+                                  style:
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                ),
+                              ],
+                            );
+                          } else {
+                            return Builder(
+                              builder: (context) {
+                                if (functions.isIssue(
+                                    _model.imagePredictions.toList())) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      Text(
+                                        'We recommend you to go to a doctor. There are some good options:',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
+                                      Builder(
+                                        builder: (context) {
+                                          final doctorInfo =
+                                              _model.doctorsInfo.toList();
+                                          return ListView.builder(
+                                            padding: EdgeInsets.zero,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount: doctorInfo.length,
+                                            itemBuilder:
+                                                (context, doctorInfoIndex) {
+                                              final doctorInfoItem =
+                                                  doctorInfo[doctorInfoIndex];
+                                              return Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Flexible(
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      child: CachedNetworkImage(
+                                                        fadeInDuration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    500),
+                                                        fadeOutDuration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    500),
+                                                        imageUrl:
+                                                            doctorInfoItem.icon,
+                                                        width: 60.0,
+                                                        height: 40.0,
+                                                        fit: BoxFit.fitWidth,
+                                                        alignment: const Alignment(
+                                                            -1.0, -1.0),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                Text(
-                                                  doctorInfoItem.name,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium,
-                                                ),
-                                                InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    await launchURL(
-                                                        doctorInfoItem.url);
-                                                  },
-                                                  child: Icon(
-                                                    Icons.open_in_new,
-                                                    color: FlutterFlowTheme.of(
+                                                  Text(
+                                                    doctorInfoItem.name,
+                                                    style: FlutterFlowTheme.of(
                                                             context)
-                                                        .secondaryText,
-                                                    size: 24.0,
+                                                        .bodyMedium,
                                                   ),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                );
-                              } else {
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Products Recommended',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                    ),
-                                    Builder(
-                                      builder: (context) {
-                                        final product =
-                                            _model.productInfo.toList();
-                                        if (product.isEmpty) {
-                                          return const EmptyWidget();
-                                        }
-                                        return ListView.separated(
-                                          padding: const EdgeInsets.fromLTRB(
-                                            0,
-                                            0.0,
-                                            0,
-                                            0,
-                                          ),
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: product.length,
-                                          separatorBuilder: (_, __) =>
-                                              const SizedBox(height: 10.0),
-                                          itemBuilder: (context, productIndex) {
-                                            final productItem =
-                                                product[productIndex];
-                                            return Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Flexible(
-                                                  flex: 70,
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        productItem.title,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium,
-                                                      ),
-                                                      Text(
-                                                        productItem.rating,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium,
-                                                      ),
-                                                      Text(
-                                                        productItem.price,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Flexible(
-                                                  flex: 30,
-                                                  child: InkWell(
+                                                  InkWell(
                                                     splashColor:
                                                         Colors.transparent,
                                                     focusColor:
@@ -486,7 +388,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                         Colors.transparent,
                                                     onTap: () async {
                                                       await launchURL(
-                                                          productItem.link);
+                                                          doctorInfoItem.url);
                                                     },
                                                     child: Icon(
                                                       Icons.open_in_new,
@@ -497,31 +399,147 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                       size: 24.0,
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                );
-                              }
-                            },
-                          );
-                        }
-                      },
-                    );
-                  } else {
-                    return Lottie.asset(
-                      'assets/lottie_animations/cv_image.json',
-                      width: 150.0,
-                      height: 130.0,
-                      fit: BoxFit.cover,
-                      animate: true,
-                    );
-                  }
-                },
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      if (_model.isProcessed &&
+                                          (_model.imageUrl != ''))
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.network(
+                                            'https://dermatechserver.cloud/skin/type/show/${_model.imageUrl}',
+                                            width: 250.0,
+                                            height: 120.0,
+                                            fit: BoxFit.fitWidth,
+                                          ),
+                                        ),
+                                      Text(
+                                        'Products Recommended',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
+                                      Builder(
+                                        builder: (context) {
+                                          final product =
+                                              _model.productInfo.toList();
+                                          if (product.isEmpty) {
+                                            return const EmptyWidget();
+                                          }
+                                          return ListView.separated(
+                                            padding: const EdgeInsets.fromLTRB(
+                                              0,
+                                              0.0,
+                                              0,
+                                              0,
+                                            ),
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount: product.length,
+                                            separatorBuilder: (_, __) =>
+                                                const SizedBox(height: 10.0),
+                                            itemBuilder:
+                                                (context, productIndex) {
+                                              final productItem =
+                                                  product[productIndex];
+                                              return Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Flexible(
+                                                    flex: 70,
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Text(
+                                                          productItem.title,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium,
+                                                        ),
+                                                        Text(
+                                                          productItem.rating,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium,
+                                                        ),
+                                                        Text(
+                                                          productItem.price,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Flexible(
+                                                    flex: 30,
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        await launchURL(
+                                                            productItem.link);
+                                                      },
+                                                      child: Icon(
+                                                        Icons.open_in_new,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 24.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                }
+                              },
+                            );
+                          }
+                        },
+                      );
+                    } else {
+                      return Lottie.asset(
+                        'assets/lottie_animations/cv_image.json',
+                        width: 150.0,
+                        height: 130.0,
+                        fit: BoxFit.cover,
+                        animate: true,
+                      );
+                    }
+                  },
+                ),
               ),
             ],
           ),
