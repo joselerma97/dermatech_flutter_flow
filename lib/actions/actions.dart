@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:async';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
@@ -32,8 +33,12 @@ Future logOut(BuildContext context) async {
     await actions.removeInternalData(
       FFAppConstants.userTag,
     );
-    statusLogout = await LogOutCall.call(
-      deviceId: FFAppState().deviceIdServer,
+    unawaited(
+      () async {
+        statusLogout = await LogOutCall.call(
+          deviceId: FFAppState().deviceIdServer,
+        );
+      }(),
     );
     FFAppState().update(() {
       FFAppState().deviceIdServer = '';
