@@ -256,7 +256,7 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            'Old Password do not match',
+                            'Old Password does not match',
                             style: TextStyle(
                               color: FlutterFlowTheme.of(context).primaryText,
                             ),
