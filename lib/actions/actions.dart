@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 
@@ -42,6 +43,29 @@ Future logOut(BuildContext context) async {
     );
 
     context.goNamed('Welcome');
+  } else {
+    return;
+  }
+}
+
+Future isDeviceEnable(BuildContext context) async {
+  ApiCallResponse? statusResponse;
+
+  if (FFAppState().deviceIdServer != '') {
+    statusResponse = await IsDeviceEnableCall.call(
+      deviceId: FFAppState().deviceIdServer,
+    );
+    if ((statusResponse.succeeded ?? true)) {
+      if (IsDeviceEnableCall.status(
+        (statusResponse.jsonBody ?? ''),
+      )!) {
+        return;
+      }
+
+      await action_blocks.logOut(context);
+    } else {
+      return;
+    }
   } else {
     return;
   }

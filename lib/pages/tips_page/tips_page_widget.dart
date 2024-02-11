@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/components/loading/loading_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,11 @@ class _TipsPageWidgetState extends State<TipsPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TipsPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await action_blocks.isDeviceEnable(context);
+    });
 
     _model.searchController ??= TextEditingController();
     _model.searchFocusNode ??= FocusNode();
