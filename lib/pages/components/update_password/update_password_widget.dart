@@ -60,7 +60,7 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
@@ -139,7 +139,7 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
               textInputAction: TextInputAction.next,
               obscureText: !_model.passwordNewVisibility,
               decoration: InputDecoration(
-                labelText: 'Label here...',
+                labelText: 'New Password...',
                 labelStyle: FlutterFlowTheme.of(context).labelMedium,
                 hintStyle: FlutterFlowTheme.of(context).labelMedium,
                 enabledBorder: UnderlineInputBorder(
@@ -201,7 +201,7 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
               textInputAction: TextInputAction.done,
               obscureText: !_model.passwordNew2Visibility,
               decoration: InputDecoration(
-                labelText: 'Label here...',
+                labelText: 'Repeat your New Password...',
                 labelStyle: FlutterFlowTheme.of(context).labelMedium,
                 hintStyle: FlutterFlowTheme.of(context).labelMedium,
                 enabledBorder: UnderlineInputBorder(
@@ -255,8 +255,8 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
             ),
           ),
           if (_model.isLoading)
-            Lottie.network(
-              'https://assets2.lottiefiles.com/packages/lf20_aZTdD5.json',
+            Lottie.asset(
+              'assets/lottie_animations/loading_animation.json',
               width: 150.0,
               height: 60.0,
               fit: BoxFit.fitHeight,
