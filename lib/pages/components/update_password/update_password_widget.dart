@@ -60,7 +60,7 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
