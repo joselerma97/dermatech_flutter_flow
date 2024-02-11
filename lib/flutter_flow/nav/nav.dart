@@ -45,7 +45,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'Welcome',
-          path: '/Welcome',
+          path: '/welcome',
           builder: (context, params) => const WelcomeWidget(),
         ),
         FFRoute(
@@ -67,7 +67,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'Camera',
-          path: '/Camera',
+          path: '/camera',
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'Camera')
               : const CameraWidget(),
