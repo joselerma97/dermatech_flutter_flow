@@ -77,7 +77,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
           },
         );
       } else {
-        context.pushNamed('Camera');
+        context.goNamed('Camera');
       }
     });
 

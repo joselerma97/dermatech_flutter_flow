@@ -75,7 +75,7 @@ Future isDeviceEnable(BuildContext context) async {
         FFAppConstants.deviceTag,
       );
 
-      context.pushNamed('Welcome');
+      context.goNamed('Welcome');
     } else {
       return;
     }
