@@ -61,7 +61,6 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
         return;
       }
       await Future.delayed(const Duration(milliseconds: 3000));
-      await action_blocks.isDeviceEnable(context);
       _model.internalUserId = await actions.readInternalData(
         FFAppConstants.userTag,
       );
@@ -80,6 +79,9 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
           },
         );
       } else {
+        await action_blocks.isDeviceEnable(context);
+        setState(() {});
+
         context.goNamed('Camera');
       }
     });
