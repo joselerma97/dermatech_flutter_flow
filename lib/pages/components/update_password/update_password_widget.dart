@@ -139,7 +139,7 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
               textInputAction: TextInputAction.next,
               obscureText: !_model.passwordNewVisibility,
               decoration: InputDecoration(
-                labelText: 'Label here...',
+                labelText: 'New Password...',
                 labelStyle: FlutterFlowTheme.of(context).labelMedium,
                 hintStyle: FlutterFlowTheme.of(context).labelMedium,
                 enabledBorder: UnderlineInputBorder(
@@ -201,7 +201,7 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
               textInputAction: TextInputAction.done,
               obscureText: !_model.passwordNew2Visibility,
               decoration: InputDecoration(
-                labelText: 'Label here...',
+                labelText: 'Repeat your New Password...',
                 labelStyle: FlutterFlowTheme.of(context).labelMedium,
                 hintStyle: FlutterFlowTheme.of(context).labelMedium,
                 enabledBorder: UnderlineInputBorder(
