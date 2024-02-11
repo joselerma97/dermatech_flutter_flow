@@ -16,7 +16,7 @@ Future<String> getDeviceIdentifier() async {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   try {
     WebBrowserInfo webBrowserInfo = await deviceInfo.webBrowserInfo;
-    return webBrowserInfo.userAgent ?? webBrowserInfo.browserName.name;
+    return webBrowserInfo.vendor ?? "Web Not Defined";
   } catch (e) {
     try {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;

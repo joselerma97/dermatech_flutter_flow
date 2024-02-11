@@ -128,7 +128,7 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Text(
-                'Devices',
+                'Connected Devices',
                 style: FlutterFlowTheme.of(context).bodyMedium,
               ),
               if (_model.isLoading)
