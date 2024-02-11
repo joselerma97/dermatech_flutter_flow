@@ -433,6 +433,96 @@ class IsDeviceEnableCall {
       ));
 }
 
+class GetUserInfoCall {
+  static Future<ApiCallResponse> call({
+    String? userId = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getUserInfo',
+      apiUrl: 'https://dermatechserver.cloud/dermatech/user/info/$userId',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? nickname(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.nickname''',
+      ));
+}
+
+class UpdateNicknameCall {
+  static Future<ApiCallResponse> call({
+    String? userId = '',
+    String? nickname = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "userId": "$userId",
+  "nickname": "$nickname"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'updateNickname',
+      apiUrl: 'https://dermatechserver.cloud/dermatech/user/update/nickname',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static bool? status(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.status''',
+      ));
+}
+
+class UpdateUserPasswordCall {
+  static Future<ApiCallResponse> call({
+    String? userId = '',
+    String? passwordOld = '',
+    String? passwordNew = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "userId": "$userId",
+  "passwordOld": "$passwordOld",
+  "passwordNew": "$passwordNew"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'updateUserPassword',
+      apiUrl: 'https://dermatechserver.cloud/dermatech/user/update/password',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static bool? status(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.status''',
+      ));
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

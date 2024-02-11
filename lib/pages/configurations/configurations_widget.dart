@@ -3,6 +3,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/components/loading/loading_widget.dart';
+import '/pages/components/update_nickname/update_nickname_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -127,16 +128,101 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Text(
-                'Connected Devices',
-                style: FlutterFlowTheme.of(context).bodyMedium,
-              ),
               if (_model.isLoading)
                 wrapWithModel(
                   model: _model.loadingModel,
                   updateCallback: () => setState(() {}),
                   child: const LoadingWidget(),
                 ),
+              Text(
+                '¡Hola ${_model.nickname}!',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Readex Pro',
+                      fontSize: 20.0,
+                    ),
+              ),
+              Text(
+                'Operations',
+                style: FlutterFlowTheme.of(context).bodyMedium,
+              ),
+              Builder(
+                builder: (context) => InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    var shouldSetState = false;
+                    await showDialog(
+                      context: context,
+                      builder: (dialogContext) {
+                        return Dialog(
+                          elevation: 0,
+                          insetPadding: EdgeInsets.zero,
+                          backgroundColor: Colors.transparent,
+                          alignment: const AlignmentDirectional(0.0, 0.0)
+                              .resolve(Directionality.of(context)),
+                          child: GestureDetector(
+                            onTap: () => _model.unfocusNode.canRequestFocus
+                                ? FocusScope.of(context)
+                                    .requestFocus(_model.unfocusNode)
+                                : FocusScope.of(context).unfocus(),
+                            child: SizedBox(
+                              height: MediaQuery.sizeOf(context).height * 0.3,
+                              width: double.infinity,
+                              child: const UpdateNicknameWidget(),
+                            ),
+                          ),
+                        );
+                      },
+                    ).then((value) =>
+                        safeSetState(() => _model.isUpdated = value));
+
+                    shouldSetState = true;
+                    if (_model.isUpdated!) {
+                      await _model.getNickname(context);
+                    } else {
+                      if (shouldSetState) setState(() {});
+                      return;
+                    }
+
+                    if (shouldSetState) setState(() {});
+                  },
+                  child: ListTile(
+                    title: Text(
+                      'Update Nickname',
+                      style: FlutterFlowTheme.of(context).titleLarge,
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: FlutterFlowTheme.of(context).secondaryText,
+                      size: 20.0,
+                    ),
+                    tileColor: FlutterFlowTheme.of(context).secondaryBackground,
+                    dense: false,
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  'Update Password',
+                  style: FlutterFlowTheme.of(context).titleLarge,
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  size: 20.0,
+                ),
+                tileColor: FlutterFlowTheme.of(context).secondaryBackground,
+                dense: false,
+              ),
+              Text(
+                'Connected Devices',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Readex Pro',
+                      fontSize: 18.0,
+                    ),
+              ),
               Expanded(
                 child: Builder(
                   builder: (context) {

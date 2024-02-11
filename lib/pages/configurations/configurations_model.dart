@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/components/loading/loading_widget.dart';
 import 'configurations_widget.dart' show ConfigurationsWidget;
@@ -19,6 +20,8 @@ class ConfigurationsModel extends FlutterFlowModel<ConfigurationsWidget> {
 
   bool isLoading = true;
 
+  String nickname = '...';
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -26,6 +29,8 @@ class ConfigurationsModel extends FlutterFlowModel<ConfigurationsWidget> {
   ApiCallResponse? devicesInfo;
   // Model for loading component.
   late LoadingModel loadingModel;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in ListTile widget.
+  bool? isUpdated;
   // Stores action output result for [Backend Call - API (logOut)] action in Icon widget.
   ApiCallResponse? logoutResult;
   // Stores action output result for [Backend Call - API (getDevices)] action in Icon widget.
@@ -45,6 +50,38 @@ class ConfigurationsModel extends FlutterFlowModel<ConfigurationsWidget> {
   }
 
   /// Action blocks are added here.
+
+  Future getNickname(BuildContext context) async {
+    ApiCallResponse? userInfo;
+
+    isLoading = true;
+    FFAppState().update(() {});
+    userInfo = await GetUserInfoCall.call(
+      userId: FFAppState().userIdServer,
+    );
+    if ((userInfo.succeeded ?? true)) {
+      nickname = GetUserInfoCall.nickname(
+        (userInfo.jsonBody ?? ''),
+      )!;
+      FFAppState().update(() {});
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Server Error',
+            style: TextStyle(
+              color: FlutterFlowTheme.of(context).primaryText,
+            ),
+          ),
+          duration: const Duration(milliseconds: 4000),
+          backgroundColor: FlutterFlowTheme.of(context).secondary,
+        ),
+      );
+    }
+
+    isLoading = false;
+    FFAppState().update(() {});
+  }
 
   /// Additional helper methods are added here.
 }

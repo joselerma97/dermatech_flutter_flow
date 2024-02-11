@@ -31,16 +31,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => const WelcomeWidget(),
+      errorBuilder: (context, state) => RootPageContext.wrap(
+        const WelcomeWidget(),
+        errorRoute: state.location,
+      ),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => const WelcomeWidget(),
+          builder: (context, _) => RootPageContext.wrap(
+            const WelcomeWidget(),
+          ),
           routes: [
             FFRoute(
               name: 'Welcome',
-              path: 'welcome',
+              path: 'Welcome',
               builder: (context, params) => const WelcomeWidget(),
             ),
             FFRoute(
@@ -62,7 +67,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'Camera',
-              path: 'camera',
+              path: 'Camera',
               builder: (context, params) => params.isEmpty
                   ? const NavBarPage(initialPage: 'Camera')
                   : const CameraWidget(),

@@ -57,6 +57,9 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (RootPageContext.isInactiveRootPage(context)) {
+        return;
+      }
       await Future.delayed(const Duration(milliseconds: 3000));
       await action_blocks.isDeviceEnable(context);
       _model.internalUserId = await actions.readInternalData(
