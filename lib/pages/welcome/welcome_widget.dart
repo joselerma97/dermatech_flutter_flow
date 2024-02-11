@@ -118,27 +118,35 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  width: double.infinity,
-                  height: MediaQuery.sizeOf(context).height * 0.65,
-                  fit: BoxFit.scaleDown,
-                  alignment: const Alignment(0.0, 0.0),
-                ),
-              ).animateOnPageLoad(animationsMap['imageOnPageLoadAnimation1']!),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.asset(
-                  'assets/images/logo_ie.jpg',
-                  width: double.infinity,
-                  height: MediaQuery.sizeOf(context).height * 0.35,
-                  fit: BoxFit.scaleDown,
-                  alignment: const Alignment(0.0, -1.0),
-                ),
-              ).animateOnPageLoad(animationsMap['imageOnPageLoadAnimation2']!),
+              Expanded(
+                flex: 8,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    width: double.infinity,
+                    fit: BoxFit.scaleDown,
+                    alignment: const Alignment(0.0, 0.0),
+                  ),
+                ).animateOnPageLoad(
+                    animationsMap['imageOnPageLoadAnimation1']!),
+              ),
+              Expanded(
+                flex: 2,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.asset(
+                    'assets/images/logo_ie.jpg',
+                    width: double.infinity,
+                    fit: BoxFit.scaleDown,
+                    alignment: const Alignment(0.0, -1.0),
+                  ),
+                ).animateOnPageLoad(
+                    animationsMap['imageOnPageLoadAnimation2']!),
+              ),
             ],
           ),
         ),
