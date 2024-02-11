@@ -31,6 +31,8 @@ class ConfigurationsModel extends FlutterFlowModel<ConfigurationsWidget> {
   late LoadingModel loadingModel;
   // Stores action output result for [Alert Dialog - Custom Dialog] action in ListTile widget.
   bool? isUpdated;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in ListTile widget.
+  bool? status;
   // Stores action output result for [Backend Call - API (logOut)] action in Icon widget.
   ApiCallResponse? logoutResult;
   // Stores action output result for [Backend Call - API (getDevices)] action in Icon widget.

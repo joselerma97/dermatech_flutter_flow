@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/components/loading/loading_widget.dart';
 import '/pages/components/update_nickname/update_nickname_widget.dart';
+import '/pages/components/update_password/update_password_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -61,6 +62,7 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
       setState(() {
         _model.isLoading = false;
       });
+      await _model.getNickname(context);
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -143,7 +145,10 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
               ),
               Text(
                 'Operations',
-                style: FlutterFlowTheme.of(context).bodyMedium,
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Readex Pro',
+                      fontSize: 18.0,
+                    ),
               ),
               Builder(
                 builder: (context) => InkWell(
@@ -167,10 +172,9 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
                                 ? FocusScope.of(context)
                                     .requestFocus(_model.unfocusNode)
                                 : FocusScope.of(context).unfocus(),
-                            child: SizedBox(
-                              height: MediaQuery.sizeOf(context).height * 0.3,
+                            child: const SizedBox(
                               width: double.infinity,
-                              child: const UpdateNicknameWidget(),
+                              child: UpdateNicknameWidget(),
                             ),
                           ),
                         );
@@ -203,18 +207,83 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
                   ),
                 ),
               ),
-              ListTile(
-                title: Text(
-                  'Update Password',
-                  style: FlutterFlowTheme.of(context).titleLarge,
+              Builder(
+                builder: (context) => InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (dialogContext) {
+                        return Dialog(
+                          elevation: 0,
+                          insetPadding: EdgeInsets.zero,
+                          backgroundColor: Colors.transparent,
+                          alignment: const AlignmentDirectional(0.0, 0.0)
+                              .resolve(Directionality.of(context)),
+                          child: GestureDetector(
+                            onTap: () => _model.unfocusNode.canRequestFocus
+                                ? FocusScope.of(context)
+                                    .requestFocus(_model.unfocusNode)
+                                : FocusScope.of(context).unfocus(),
+                            child: const SizedBox(
+                              width: double.infinity,
+                              child: UpdatePasswordWidget(),
+                            ),
+                          ),
+                        );
+                      },
+                    ).then(
+                        (value) => safeSetState(() => _model.status = value));
+
+                    if (_model.status!) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Password Updated',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 4000),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).secondary,
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Old Password do not match',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 4000),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).secondary,
+                        ),
+                      );
+                    }
+
+                    setState(() {});
+                  },
+                  child: ListTile(
+                    title: Text(
+                      'Update Password',
+                      style: FlutterFlowTheme.of(context).titleLarge,
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: FlutterFlowTheme.of(context).secondaryText,
+                      size: 20.0,
+                    ),
+                    tileColor: FlutterFlowTheme.of(context).secondaryBackground,
+                    dense: false,
+                  ),
                 ),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  color: FlutterFlowTheme.of(context).secondaryText,
-                  size: 20.0,
-                ),
-                tileColor: FlutterFlowTheme.of(context).secondaryBackground,
-                dense: false,
               ),
               Text(
                 'Connected Devices',
