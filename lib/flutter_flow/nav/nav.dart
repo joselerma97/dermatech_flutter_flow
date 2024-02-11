@@ -42,59 +42,57 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, _) => RootPageContext.wrap(
             const WelcomeWidget(),
           ),
-          routes: [
-            FFRoute(
-              name: 'Welcome',
-              path: 'Welcome',
-              builder: (context, params) => const WelcomeWidget(),
-            ),
-            FFRoute(
-              name: 'Authentication',
-              path: 'authentication',
-              builder: (context, params) => const AuthenticationWidget(),
-            ),
-            FFRoute(
-              name: 'Register',
-              path: 'register',
-              builder: (context, params) => const RegisterWidget(),
-            ),
-            FFRoute(
-              name: 'Alarms',
-              path: 'alarms',
-              builder: (context, params) => params.isEmpty
-                  ? const NavBarPage(initialPage: 'Alarms')
-                  : const AlarmsWidget(),
-            ),
-            FFRoute(
-              name: 'Camera',
-              path: 'Camera',
-              builder: (context, params) => params.isEmpty
-                  ? const NavBarPage(initialPage: 'Camera')
-                  : const CameraWidget(),
-            ),
-            FFRoute(
-              name: 'Recommendation',
-              path: 'recommendation',
-              builder: (context, params) => params.isEmpty
-                  ? const NavBarPage(initialPage: 'Recommendation')
-                  : const RecommendationWidget(),
-            ),
-            FFRoute(
-              name: 'TipsPage',
-              path: 'tipsPage',
-              builder: (context, params) => params.isEmpty
-                  ? const NavBarPage(initialPage: 'TipsPage')
-                  : const TipsPageWidget(),
-            ),
-            FFRoute(
-              name: 'Configurations',
-              path: 'configurations',
-              builder: (context, params) => params.isEmpty
-                  ? const NavBarPage(initialPage: 'Configurations')
-                  : const ConfigurationsWidget(),
-            )
-          ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
+        FFRoute(
+          name: 'Welcome',
+          path: '/Welcome',
+          builder: (context, params) => const WelcomeWidget(),
+        ),
+        FFRoute(
+          name: 'Authentication',
+          path: '/authentication',
+          builder: (context, params) => const AuthenticationWidget(),
+        ),
+        FFRoute(
+          name: 'Register',
+          path: '/register',
+          builder: (context, params) => const RegisterWidget(),
+        ),
+        FFRoute(
+          name: 'Alarms',
+          path: '/alarms',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'Alarms')
+              : const AlarmsWidget(),
+        ),
+        FFRoute(
+          name: 'Camera',
+          path: '/Camera',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'Camera')
+              : const CameraWidget(),
+        ),
+        FFRoute(
+          name: 'Recommendation',
+          path: '/recommendation',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'Recommendation')
+              : const RecommendationWidget(),
+        ),
+        FFRoute(
+          name: 'TipsPage',
+          path: '/tipsPage',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'TipsPage')
+              : const TipsPageWidget(),
+        ),
+        FFRoute(
+          name: 'Configurations',
+          path: '/configurations',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'Configurations')
+              : const ConfigurationsWidget(),
+        )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 
