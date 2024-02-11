@@ -255,8 +255,8 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
             ),
           ),
           if (_model.isLoading)
-            Lottie.network(
-              'https://assets2.lottiefiles.com/packages/lf20_aZTdD5.json',
+            Lottie.asset(
+              'assets/lottie_animations/loading_animation.json',
               width: 150.0,
               height: 60.0,
               fit: BoxFit.fitHeight,
