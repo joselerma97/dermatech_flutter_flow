@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -57,6 +58,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 3000));
+      await action_blocks.isDeviceEnable(context);
       _model.internalUserId = await actions.readInternalData(
         FFAppConstants.userTag,
       );

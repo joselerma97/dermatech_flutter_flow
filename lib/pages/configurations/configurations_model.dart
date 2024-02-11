@@ -26,6 +26,10 @@ class ConfigurationsModel extends FlutterFlowModel<ConfigurationsWidget> {
   ApiCallResponse? devicesInfo;
   // Model for loading component.
   late LoadingModel loadingModel;
+  // Stores action output result for [Backend Call - API (logOut)] action in Icon widget.
+  ApiCallResponse? logoutResult;
+  // Stores action output result for [Backend Call - API (getDevices)] action in Icon widget.
+  ApiCallResponse? apiResultp9k;
 
   /// Initialization and disposal methods.
 

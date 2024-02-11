@@ -31,6 +31,7 @@ class _AlarmsWidgetState extends State<AlarmsWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await action_blocks.isDeviceEnable(context);
       await _model.getAlarmsInfo(context);
       setState(() {});
     });

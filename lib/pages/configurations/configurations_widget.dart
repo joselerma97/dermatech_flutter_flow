@@ -30,6 +30,7 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await action_blocks.isDeviceEnable(context);
       _model.devicesInfo = await GetDevicesCall.call(
         userId: FFAppState().userIdServer,
       );
@@ -155,10 +156,148 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
                               deviceItem.name,
                               style: FlutterFlowTheme.of(context).bodyMedium,
                             ),
-                            Icon(
-                              Icons.delete,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 24.0,
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                var shouldSetState = false;
+                                var confirmDialogResponse =
+                                    await showDialog<bool>(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title: const Text('Dermatech'),
+                                              content: const Text(
+                                                  'Do you want to end the session?'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext,
+                                                          false),
+                                                  child: const Text('Cancel'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext,
+                                                          true),
+                                                  child: const Text('Confirm'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ) ??
+                                        false;
+                                if (confirmDialogResponse) {
+                                  if (deviceItem.id ==
+                                      FFAppState().deviceIdServer) {
+                                    await action_blocks.logOut(context);
+                                  } else {
+                                    _model.logoutResult = await LogOutCall.call(
+                                      deviceId: deviceItem.id,
+                                    );
+                                    shouldSetState = true;
+                                    if ((_model.logoutResult?.succeeded ??
+                                        true)) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Session Ended',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              const Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                      setState(() {
+                                        _model.isLoading = false;
+                                        _model.devices = [];
+                                      });
+                                      _model.apiResultp9k =
+                                          await GetDevicesCall.call(
+                                        userId: FFAppState().userIdServer,
+                                      );
+                                      shouldSetState = true;
+                                      if ((_model.apiResultp9k?.succeeded ??
+                                          true)) {
+                                        setState(() {
+                                          _model.devices =
+                                              GetDevicesCall.devices(
+                                            (_model.apiResultp9k?.jsonBody ??
+                                                ''),
+                                          )!
+                                                  .toList()
+                                                  .cast<DeviceInfoStruct>();
+                                        });
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Server Error',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                const Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
+                                      }
+
+                                      setState(() {
+                                        _model.isLoading = false;
+                                      });
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Server Error',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              const Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                    }
+                                  }
+                                } else {
+                                  if (shouldSetState) setState(() {});
+                                  return;
+                                }
+
+                                if (shouldSetState) setState(() {});
+                              },
+                              child: Icon(
+                                Icons.delete,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                size: 24.0,
+                              ),
                             ),
                           ],
                         );

@@ -408,6 +408,31 @@ class GetDevicesCall {
           .toList();
 }
 
+class IsDeviceEnableCall {
+  static Future<ApiCallResponse> call({
+    String? deviceId = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'isDeviceEnable',
+      apiUrl:
+          'https://dermatechserver.cloud/dermatech/device/enabled/$deviceId',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static bool? status(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.status''',
+      ));
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
