@@ -67,6 +67,12 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
       setState(() {
         FFAppState().userIdServer = _model.internalUserId!;
       });
+      _model.deviceValue = await actions.readInternalData(
+        FFAppConstants.deviceTag,
+      );
+      setState(() {
+        FFAppState().deviceIdServer = _model.deviceValue!;
+      });
       if (FFAppState().userIdServer == '') {
         context.goNamed(
           'Authentication',
@@ -80,7 +86,6 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
         );
       } else {
         await action_blocks.isDeviceEnable(context);
-        setState(() {});
 
         context.goNamed('Camera');
       }
