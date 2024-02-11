@@ -149,96 +149,127 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
                       itemBuilder: (context, deviceIndex) {
                         final deviceItem = device[deviceIndex];
                         return Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                              deviceItem.name,
-                              style: FlutterFlowTheme.of(context).bodyMedium,
+                            Expanded(
+                              flex: 70,
+                              child: Text(
+                                deviceItem.name,
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
                             ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                var shouldSetState = false;
-                                var confirmDialogResponse =
-                                    await showDialog<bool>(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: const Text('Dermatech'),
-                                              content: const Text(
-                                                  'Do you want to end the session?'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext,
-                                                          false),
-                                                  child: const Text('Cancel'),
-                                                ),
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext,
-                                                          true),
-                                                  child: const Text('Confirm'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        ) ??
-                                        false;
-                                if (confirmDialogResponse) {
-                                  if (deviceItem.id ==
-                                      FFAppState().deviceIdServer) {
-                                    await action_blocks.logOut(context);
-                                  } else {
-                                    _model.logoutResult = await LogOutCall.call(
-                                      deviceId: deviceItem.id,
-                                    );
-                                    shouldSetState = true;
-                                    if ((_model.logoutResult?.succeeded ??
-                                        true)) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Session Ended',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                          ),
-                                          duration:
-                                              const Duration(milliseconds: 4000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                        ),
-                                      );
-                                      setState(() {
-                                        _model.isLoading = false;
-                                        _model.devices = [];
-                                      });
-                                      _model.apiResultp9k =
-                                          await GetDevicesCall.call(
-                                        userId: FFAppState().userIdServer,
+                            Flexible(
+                              flex: 30,
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  var shouldSetState = false;
+                                  var confirmDialogResponse =
+                                      await showDialog<bool>(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: const Text('Dermatech'),
+                                                content: const Text(
+                                                    'Do you want to end the session?'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext,
+                                                            false),
+                                                    child: const Text('Cancel'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext,
+                                                            true),
+                                                    child: const Text('Confirm'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ) ??
+                                          false;
+                                  if (confirmDialogResponse) {
+                                    if (deviceItem.id ==
+                                        FFAppState().deviceIdServer) {
+                                      await action_blocks.logOut(context);
+                                    } else {
+                                      _model.logoutResult =
+                                          await LogOutCall.call(
+                                        deviceId: deviceItem.id,
                                       );
                                       shouldSetState = true;
-                                      if ((_model.apiResultp9k?.succeeded ??
+                                      if ((_model.logoutResult?.succeeded ??
                                           true)) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Session Ended',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                const Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
                                         setState(() {
-                                          _model.devices =
-                                              GetDevicesCall.devices(
-                                            (_model.apiResultp9k?.jsonBody ??
-                                                ''),
-                                          )!
-                                                  .toList()
-                                                  .cast<DeviceInfoStruct>();
+                                          _model.isLoading = false;
+                                          _model.devices = [];
+                                        });
+                                        _model.apiResultp9k =
+                                            await GetDevicesCall.call(
+                                          userId: FFAppState().userIdServer,
+                                        );
+                                        shouldSetState = true;
+                                        if ((_model.apiResultp9k?.succeeded ??
+                                            true)) {
+                                          setState(() {
+                                            _model.devices =
+                                                GetDevicesCall.devices(
+                                              (_model.apiResultp9k?.jsonBody ??
+                                                  ''),
+                                            )!
+                                                    .toList()
+                                                    .cast<DeviceInfoStruct>();
+                                          });
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Server Error',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  const Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          );
+                                        }
+
+                                        setState(() {
+                                          _model.isLoading = false;
                                         });
                                       } else {
                                         ScaffoldMessenger.of(context)
@@ -260,43 +291,20 @@ class _ConfigurationsWidgetState extends State<ConfigurationsWidget> {
                                           ),
                                         );
                                       }
-
-                                      setState(() {
-                                        _model.isLoading = false;
-                                      });
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Server Error',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                          ),
-                                          duration:
-                                              const Duration(milliseconds: 4000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                        ),
-                                      );
                                     }
+                                  } else {
+                                    if (shouldSetState) setState(() {});
+                                    return;
                                   }
-                                } else {
-                                  if (shouldSetState) setState(() {});
-                                  return;
-                                }
 
-                                if (shouldSetState) setState(() {});
-                              },
-                              child: Icon(
-                                Icons.delete,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                size: 24.0,
+                                  if (shouldSetState) setState(() {});
+                                },
+                                child: Icon(
+                                  Icons.delete,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
+                                ),
                               ),
                             ),
                           ],
