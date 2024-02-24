@@ -63,7 +63,15 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                   width: 100.0,
                   height: double.infinity,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    gradient: LinearGradient(
+                      colors: [
+                        FlutterFlowTheme.of(context).accent2,
+                        FlutterFlowTheme.of(context).warning
+                      ],
+                      stops: const [0.0, 1.0],
+                      begin: const AlignmentDirectional(0.34, -1.0),
+                      end: const AlignmentDirectional(-0.34, 1.0),
+                    ),
                   ),
                   alignment: const AlignmentDirectional(0.0, -1.0),
                   child: SingleChildScrollView(
@@ -75,8 +83,22 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                           width: double.infinity,
                           height: 140.0,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            boxShadow: const [
+                              BoxShadow(
+                                blurRadius: 4.0,
+                                color: Color(0x33000000),
+                                offset: Offset(0.0, 2.0),
+                              )
+                            ],
+                            gradient: LinearGradient(
+                              colors: [
+                                FlutterFlowTheme.of(context).warning,
+                                FlutterFlowTheme.of(context).accent2
+                              ],
+                              stops: const [0.0, 1.0],
+                              begin: const AlignmentDirectional(0.34, -1.0),
+                              end: const AlignmentDirectional(-0.34, 1.0),
+                            ),
                             borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(16.0),
                               bottomRight: Radius.circular(16.0),
@@ -581,31 +603,6 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget> {
                   ),
                 ),
               ),
-              if (responsiveVisibility(
-                context: context,
-                phone: false,
-                tablet: false,
-              ))
-                Expanded(
-                  flex: 6,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Container(
-                      width: 100.0,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: Image.asset(
-                            'assets/images/tech_skin_care.webp',
-                          ).image,
-                        ),
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                    ),
-                  ),
-                ),
             ],
           ),
         ),
