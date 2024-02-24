@@ -425,7 +425,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                       .doctorsInfo
                                                                       .toList();
                                                               return ListView
-                                                                  .builder(
+                                                                  .separated(
                                                                 padding:
                                                                     EdgeInsets
                                                                         .zero,
@@ -436,6 +436,11 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                 itemCount:
                                                                     doctorInfo
                                                                         .length,
+                                                                separatorBuilder: (_,
+                                                                        __) =>
+                                                                    const SizedBox(
+                                                                        height:
+                                                                            4.0),
                                                                 itemBuilder:
                                                                     (context,
                                                                         doctorInfoIndex) {
