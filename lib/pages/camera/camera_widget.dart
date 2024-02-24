@@ -355,12 +355,10 @@ class _CameraWidgetState extends State<CameraWidget> {
                                 ),
                               ),
                             if (_model.isLoading)
-                              Flexible(
-                                child: wrapWithModel(
-                                  model: _model.loadingModel,
-                                  updateCallback: () => setState(() {}),
-                                  child: const LoadingWidget(),
-                                ),
+                              wrapWithModel(
+                                model: _model.loadingModel,
+                                updateCallback: () => setState(() {}),
+                                child: const LoadingWidget(),
                               ),
                             Expanded(
                               child: Padding(
@@ -719,13 +717,17 @@ class _CameraWidgetState extends State<CameraWidget> {
                                     } else {
                                       return Column(
                                         mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
-                                          Lottie.asset(
-                                            'assets/lottie_animations/cv_image.json',
-                                            width: 150.0,
-                                            height: 130.0,
-                                            fit: BoxFit.cover,
-                                            animate: true,
+                                          Expanded(
+                                            child: Lottie.asset(
+                                              'assets/lottie_animations/cv_image.json',
+                                              width: 150.0,
+                                              height: 130.0,
+                                              fit: BoxFit.fitWidth,
+                                              animate: true,
+                                            ),
                                           ),
                                         ],
                                       );
