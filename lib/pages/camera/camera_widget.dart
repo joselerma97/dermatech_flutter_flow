@@ -60,7 +60,7 @@ class _CameraWidgetState extends State<CameraWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
+          backgroundColor: FlutterFlowTheme.of(context).accent2,
           automaticallyImplyLeading: false,
           title: Text(
             'Image Analysis',
