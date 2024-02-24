@@ -103,7 +103,7 @@ class _RecommendationWidgetState extends State<RecommendationWidget> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(14.0),
               child: Card(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -196,7 +196,7 @@ class _RecommendationWidgetState extends State<RecommendationWidget> {
                                 Icons.search,
                                 color:
                                     FlutterFlowTheme.of(context).secondaryText,
-                                size: 24.0,
+                                size: 30.0,
                               ),
                             ),
                           ),
