@@ -654,7 +654,9 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                           child:
                                                                               Column(
                                                                             mainAxisSize:
-                                                                                MainAxisSize.max,
+                                                                                MainAxisSize.min,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.stretch,
                                                                             children: [
                                                                               Text(
                                                                                 productItem.title,
@@ -664,14 +666,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                                     ),
                                                                               ),
                                                                               Text(
-                                                                                productItem.rating,
-                                                                                style: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                      fontFamily: 'Readex Pro',
-                                                                                      color: FlutterFlowTheme.of(context).primaryText,
-                                                                                    ),
-                                                                              ),
-                                                                              Text(
-                                                                                productItem.price,
+                                                                                '${productItem.rating}. ${productItem.price}',
                                                                                 style: FlutterFlowTheme.of(context).titleSmall.override(
                                                                                       fontFamily: 'Readex Pro',
                                                                                       color: FlutterFlowTheme.of(context).primaryText,
