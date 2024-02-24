@@ -10,14 +10,17 @@ class CameraModel extends FlutterFlowModel<CameraWidget> {
 
   String imageUrl = '*';
 
-  List<String> imagePredictions = [];
-  void addToImagePredictions(String item) => imagePredictions.add(item);
-  void removeFromImagePredictions(String item) => imagePredictions.remove(item);
+  List<PredResultStruct> imagePredictions = [];
+  void addToImagePredictions(PredResultStruct item) =>
+      imagePredictions.add(item);
+  void removeFromImagePredictions(PredResultStruct item) =>
+      imagePredictions.remove(item);
   void removeAtIndexFromImagePredictions(int index) =>
       imagePredictions.removeAt(index);
-  void insertAtIndexInImagePredictions(int index, String item) =>
+  void insertAtIndexInImagePredictions(int index, PredResultStruct item) =>
       imagePredictions.insert(index, item);
-  void updateImagePredictionsAtIndex(int index, Function(String) updateFn) =>
+  void updateImagePredictionsAtIndex(
+          int index, Function(PredResultStruct) updateFn) =>
       imagePredictions[index] = updateFn(imagePredictions[index]);
 
   bool isLoading = false;
