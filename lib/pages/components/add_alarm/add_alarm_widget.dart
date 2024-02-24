@@ -55,230 +55,255 @@ class _AddAlarmWidgetState extends State<AddAlarmWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Align(
-      alignment: const AlignmentDirectional(-1.0, -1.0),
-      child: Card(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        color: FlutterFlowTheme.of(context).secondaryBackground,
-        elevation: 4.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
+    return Container(
+      width: MediaQuery.sizeOf(context).width * 1.0,
+      height: MediaQuery.sizeOf(context).height * 1.0,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            FlutterFlowTheme.of(context).warning,
+            FlutterFlowTheme.of(context).accent2
+          ],
+          stops: const [0.0, 1.0],
+          begin: const AlignmentDirectional(0.34, -1.0),
+          end: const AlignmentDirectional(-0.34, 1.0),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                'Add Alarm',
-                textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).titleLarge,
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                child: TextFormField(
-                  controller: _model.nameController,
-                  focusNode: _model.nameFocusNode,
-                  autofocus: true,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                    labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                    hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    errorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedErrorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  style: FlutterFlowTheme.of(context).titleLarge,
-                  validator:
-                      _model.nameControllerValidator.asValidator(context),
-                ),
-              ),
-              Row(
+      ),
+      child: Align(
+        alignment: const AlignmentDirectional(-1.0, -1.0),
+        child: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: Card(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            elevation: 4.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
                 mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'Unit',
+                    'Add Alarm',
+                    textAlign: TextAlign.center,
                     style: FlutterFlowTheme.of(context).titleLarge,
                   ),
-                  FlutterFlowDropDown<String>(
-                    controller: _model.unitValueController ??=
-                        FormFieldController<String>(
-                      _model.unitValue ??= 'hours',
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                    child: TextFormField(
+                      controller: _model.nameController,
+                      focusNode: _model.nameFocusNode,
+                      autofocus: true,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        labelText: 'Name',
+                        labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                        hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).alternate,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).primary,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).error,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedErrorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).error,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      style: FlutterFlowTheme.of(context).titleLarge,
+                      validator:
+                          _model.nameControllerValidator.asValidator(context),
                     ),
-                    options: const ['minutes', 'hours'],
-                    onChanged: (val) => setState(() => _model.unitValue = val),
-                    width: 300.0,
-                    height: 50.0,
-                    textStyle: FlutterFlowTheme.of(context).titleLarge,
-                    hintText: 'Please select...',
-                    icon: Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 24.0,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Unit',
+                        style: FlutterFlowTheme.of(context).titleLarge,
+                      ),
+                      FlutterFlowDropDown<String>(
+                        controller: _model.unitValueController ??=
+                            FormFieldController<String>(
+                          _model.unitValue ??= 'hours',
+                        ),
+                        options: const ['minutes', 'hours'],
+                        onChanged: (val) =>
+                            setState(() => _model.unitValue = val),
+                        width: 300.0,
+                        height: 50.0,
+                        textStyle: FlutterFlowTheme.of(context).titleLarge,
+                        hintText: 'Please select...',
+                        icon: Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 24.0,
+                        ),
+                        fillColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                        elevation: 2.0,
+                        borderColor: FlutterFlowTheme.of(context).alternate,
+                        borderWidth: 2.0,
+                        borderRadius: 8.0,
+                        margin: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 4.0, 16.0, 4.0),
+                        hidesUnderline: true,
+                        isOverButton: true,
+                        isSearchable: false,
+                        isMultiSelect: false,
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                    child: TextFormField(
+                      controller: _model.amountController,
+                      focusNode: _model.amountFocusNode,
+                      autofocus: true,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        labelText: 'Amount',
+                        labelStyle: FlutterFlowTheme.of(context).titleLarge,
+                        hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).alternate,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).primary,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).error,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedErrorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).error,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      style: FlutterFlowTheme.of(context).titleLarge,
+                      keyboardType: TextInputType.number,
+                      validator:
+                          _model.amountControllerValidator.asValidator(context),
                     ),
-                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                    elevation: 2.0,
-                    borderColor: FlutterFlowTheme.of(context).alternate,
-                    borderWidth: 2.0,
-                    borderRadius: 8.0,
-                    margin:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 4.0),
-                    hidesUnderline: true,
-                    isOverButton: true,
-                    isSearchable: false,
-                    isMultiSelect: false,
+                  ),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      if ((_model.nameController.text != '') &&
+                          (_model.amountController.text != '')) {
+                        _model.statusAdd = await AddAlarmCall.call(
+                          userId: FFAppState().userIdServer,
+                          name: _model.nameController.text,
+                          unit: _model.unitValue,
+                          amount: int.tryParse(_model.amountController.text),
+                        );
+                        if ((_model.statusAdd?.succeeded ?? true)) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Alarm Added',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: const Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+                          Navigator.pop(context, 'Added');
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Server Error',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: const Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Fill all the fields',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: const Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                      }
+
+                      setState(() {});
+                    },
+                    text: 'Add',
+                    options: FFButtonOptions(
+                      height: 40.0,
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Readex Pro',
+                                color: Colors.white,
+                              ),
+                      elevation: 3.0,
+                      borderSide: const BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                child: TextFormField(
-                  controller: _model.amountController,
-                  focusNode: _model.amountFocusNode,
-                  autofocus: true,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Amount',
-                    labelStyle: FlutterFlowTheme.of(context).titleLarge,
-                    hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    errorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedErrorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  style: FlutterFlowTheme.of(context).titleLarge,
-                  keyboardType: TextInputType.number,
-                  validator:
-                      _model.amountControllerValidator.asValidator(context),
-                ),
-              ),
-              FFButtonWidget(
-                onPressed: () async {
-                  if ((_model.nameController.text != '') &&
-                      (_model.amountController.text != '')) {
-                    _model.statusAdd = await AddAlarmCall.call(
-                      userId: FFAppState().userIdServer,
-                      name: _model.nameController.text,
-                      unit: _model.unitValue,
-                      amount: int.tryParse(_model.amountController.text),
-                    );
-                    if ((_model.statusAdd?.succeeded ?? true)) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Alarm Added',
-                            style: TextStyle(
-                              color: FlutterFlowTheme.of(context).primaryText,
-                            ),
-                          ),
-                          duration: const Duration(milliseconds: 4000),
-                          backgroundColor:
-                              FlutterFlowTheme.of(context).secondary,
-                        ),
-                      );
-                      Navigator.pop(context, 'Added');
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Server Error',
-                            style: TextStyle(
-                              color: FlutterFlowTheme.of(context).primaryText,
-                            ),
-                          ),
-                          duration: const Duration(milliseconds: 4000),
-                          backgroundColor:
-                              FlutterFlowTheme.of(context).secondary,
-                        ),
-                      );
-                    }
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Fill all the fields',
-                          style: TextStyle(
-                            color: FlutterFlowTheme.of(context).primaryText,
-                          ),
-                        ),
-                        duration: const Duration(milliseconds: 4000),
-                        backgroundColor: FlutterFlowTheme.of(context).secondary,
-                      ),
-                    );
-                  }
-
-                  setState(() {});
-                },
-                text: 'Add',
-                options: FFButtonOptions(
-                  height: 40.0,
-                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                  iconPadding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Readex Pro',
-                        color: Colors.white,
-                      ),
-                  elevation: 3.0,
-                  borderSide: const BorderSide(
-                    color: Colors.transparent,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
