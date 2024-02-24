@@ -334,7 +334,8 @@ class _CameraWidgetState extends State<CameraWidget> {
                                         CrossAxisAlignment.stretch,
                                     children: [
                                       Text(
-                                        'We recommend you to go to a doctor. There are some good options:',
+                                        functions.getIllnessData(
+                                            _model.imagePredictions.toList()),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium,
                                       ),
@@ -457,7 +458,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                               final issueItem =
                                                   issue[issueIndex];
                                               return Text(
-                                                issueItem.name,
+                                                '${issueItem.name} with ${functions.doubleToPercentageString(issueItem.score)}%',
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
