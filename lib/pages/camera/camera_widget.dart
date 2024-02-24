@@ -415,107 +415,103 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                     context)
                                                                 .titleLarge,
                                                       ),
-                                                      Expanded(
-                                                        child: Builder(
-                                                          builder: (context) {
-                                                            final doctorInfo =
-                                                                _model
-                                                                    .doctorsInfo
-                                                                    .toList();
-                                                            return ListView
-                                                                .builder(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              shrinkWrap: true,
-                                                              scrollDirection:
-                                                                  Axis.vertical,
-                                                              itemCount:
-                                                                  doctorInfo
-                                                                      .length,
-                                                              itemBuilder: (context,
-                                                                  doctorInfoIndex) {
-                                                                final doctorInfoItem =
-                                                                    doctorInfo[
-                                                                        doctorInfoIndex];
-                                                                return Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Flexible(
-                                                                      child:
-                                                                          ClipRRect(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                      if (_model.doctorsInfo.isNotEmpty)
+                                                        Expanded(
+                                                          child: Builder(
+                                                            builder: (context) {
+                                                              final doctorInfo =
+                                                                  _model
+                                                                      .doctorsInfo
+                                                                      .toList();
+                                                              return ListView
+                                                                  .builder(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                shrinkWrap:
+                                                                    true,
+                                                                scrollDirection:
+                                                                    Axis.vertical,
+                                                                itemCount:
+                                                                    doctorInfo
+                                                                        .length,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        doctorInfoIndex) {
+                                                                  final doctorInfoItem =
+                                                                      doctorInfo[
+                                                                          doctorInfoIndex];
+                                                                  return Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      Flexible(
                                                                         child:
-                                                                            CachedNetworkImage(
-                                                                          fadeInDuration:
-                                                                              const Duration(milliseconds: 500),
-                                                                          fadeOutDuration:
-                                                                              const Duration(milliseconds: 500),
-                                                                          imageUrl:
-                                                                              doctorInfoItem.icon,
-                                                                          width:
-                                                                              60.0,
-                                                                          height:
-                                                                              40.0,
-                                                                          fit: BoxFit
-                                                                              .fitWidth,
-                                                                          alignment: const Alignment(
-                                                                              -1.0,
-                                                                              -1.0),
+                                                                            ClipRRect(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(8.0),
+                                                                          child:
+                                                                              CachedNetworkImage(
+                                                                            fadeInDuration:
+                                                                                const Duration(milliseconds: 500),
+                                                                            fadeOutDuration:
+                                                                                const Duration(milliseconds: 500),
+                                                                            imageUrl:
+                                                                                doctorInfoItem.icon,
+                                                                            width:
+                                                                                60.0,
+                                                                            height:
+                                                                                40.0,
+                                                                            fit:
+                                                                                BoxFit.fitWidth,
+                                                                            alignment:
+                                                                                const Alignment(-1.0, -1.0),
+                                                                          ),
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                    Text(
-                                                                      doctorInfoItem
-                                                                          .name,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .titleLarge,
-                                                                    ),
-                                                                    InkWell(
-                                                                      splashColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      focusColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      hoverColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      highlightColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      onTap:
-                                                                          () async {
-                                                                        await launchURL(
-                                                                            doctorInfoItem.url);
-                                                                      },
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .open_in_new,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryText,
-                                                                        size:
-                                                                            24.0,
+                                                                      Text(
+                                                                        doctorInfoItem
+                                                                            .name,
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .titleLarge,
                                                                       ),
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
-                                                            );
-                                                          },
+                                                                      InkWell(
+                                                                        splashColor:
+                                                                            Colors.transparent,
+                                                                        focusColor:
+                                                                            Colors.transparent,
+                                                                        hoverColor:
+                                                                            Colors.transparent,
+                                                                        highlightColor:
+                                                                            Colors.transparent,
+                                                                        onTap:
+                                                                            () async {
+                                                                          await launchURL(
+                                                                              doctorInfoItem.url);
+                                                                        },
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .open_in_new,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryText,
+                                                                          size:
+                                                                              24.0,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                          ),
                                                         ),
-                                                      ),
                                                     ],
                                                   );
                                                 } else {
@@ -556,40 +552,43 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                   .of(context)
                                                               .titleLarge,
                                                         ),
-                                                        Builder(
-                                                          builder: (context) {
-                                                            final issue = _model
-                                                                .imagePredictions
-                                                                .toList();
-                                                            return ListView
-                                                                .builder(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              shrinkWrap: true,
-                                                              scrollDirection:
-                                                                  Axis.vertical,
-                                                              itemCount:
-                                                                  issue.length,
-                                                              itemBuilder:
-                                                                  (context,
-                                                                      issueIndex) {
-                                                                final issueItem =
-                                                                    issue[
-                                                                        issueIndex];
-                                                                return Text(
-                                                                  '${issueItem.name} with ${functions.doubleToPercentageString(issueItem.score)}',
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleLarge,
-                                                                );
-                                                              },
-                                                            );
-                                                          },
-                                                        ),
+                                                        if (_model
+                                                                .imagePredictions.isNotEmpty)
+                                                          Builder(
+                                                            builder: (context) {
+                                                              final issue = _model
+                                                                  .imagePredictions
+                                                                  .toList();
+                                                              return ListView
+                                                                  .builder(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                shrinkWrap:
+                                                                    true,
+                                                                scrollDirection:
+                                                                    Axis.vertical,
+                                                                itemCount: issue
+                                                                    .length,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        issueIndex) {
+                                                                  final issueItem =
+                                                                      issue[
+                                                                          issueIndex];
+                                                                  return Text(
+                                                                    '${issueItem.name} with ${functions.doubleToPercentageString(issueItem.score)}',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleLarge,
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                          ),
                                                         Text(
                                                           'Products Recommended',
                                                           textAlign:
@@ -598,120 +597,121 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                   .of(context)
                                                               .titleLarge,
                                                         ),
-                                                        Expanded(
-                                                          child: Builder(
-                                                            builder: (context) {
-                                                              final product =
-                                                                  _model
-                                                                      .productInfo
-                                                                      .toList();
-                                                              if (product
-                                                                  .isEmpty) {
-                                                                return const EmptyWidget();
-                                                              }
-                                                              return ListView
-                                                                  .separated(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .fromLTRB(
-                                                                  0,
-                                                                  0.0,
-                                                                  0,
-                                                                  0,
-                                                                ),
-                                                                shrinkWrap:
-                                                                    true,
-                                                                scrollDirection:
-                                                                    Axis.vertical,
-                                                                itemCount:
-                                                                    product
-                                                                        .length,
-                                                                separatorBuilder: (_,
-                                                                        __) =>
-                                                                    const SizedBox(
-                                                                        height:
-                                                                            10.0),
-                                                                itemBuilder:
-                                                                    (context,
-                                                                        productIndex) {
-                                                                  final productItem =
-                                                                      product[
-                                                                          productIndex];
-                                                                  return Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .min,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: [
-                                                                            Text(
-                                                                              productItem.title,
-                                                                              style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                    fontFamily: 'Readex Pro',
-                                                                                    color: FlutterFlowTheme.of(context).primaryText,
-                                                                                  ),
-                                                                            ),
-                                                                            Text(
-                                                                              productItem.rating,
-                                                                              style: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                    fontFamily: 'Readex Pro',
-                                                                                    color: FlutterFlowTheme.of(context).primaryText,
-                                                                                  ),
-                                                                            ),
-                                                                            Text(
-                                                                              productItem.price,
-                                                                              style: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                    fontFamily: 'Readex Pro',
-                                                                                    color: FlutterFlowTheme.of(context).primaryText,
-                                                                                  ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        flex: 1,
-                                                                        child:
-                                                                            InkWell(
-                                                                          splashColor:
-                                                                              Colors.transparent,
-                                                                          focusColor:
-                                                                              Colors.transparent,
-                                                                          hoverColor:
-                                                                              Colors.transparent,
-                                                                          highlightColor:
-                                                                              Colors.transparent,
-                                                                          onTap:
-                                                                              () async {
-                                                                            await launchURL(productItem.link);
-                                                                          },
+                                                        if (_model.productInfo.isNotEmpty)
+                                                          Expanded(
+                                                            child: Builder(
+                                                              builder:
+                                                                  (context) {
+                                                                final product = _model
+                                                                    .productInfo
+                                                                    .toList();
+                                                                if (product
+                                                                    .isEmpty) {
+                                                                  return const EmptyWidget();
+                                                                }
+                                                                return ListView
+                                                                    .separated(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .fromLTRB(
+                                                                    0,
+                                                                    0.0,
+                                                                    0,
+                                                                    0,
+                                                                  ),
+                                                                  shrinkWrap:
+                                                                      true,
+                                                                  scrollDirection:
+                                                                      Axis.vertical,
+                                                                  itemCount:
+                                                                      product
+                                                                          .length,
+                                                                  separatorBuilder: (_,
+                                                                          __) =>
+                                                                      const SizedBox(
+                                                                          height:
+                                                                              10.0),
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          productIndex) {
+                                                                    final productItem =
+                                                                        product[
+                                                                            productIndex];
+                                                                    return Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .min,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Expanded(
+                                                                          flex:
+                                                                              2,
                                                                           child:
-                                                                              Icon(
-                                                                            Icons.open_in_new,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryText,
-                                                                            size:
-                                                                                24.0,
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            children: [
+                                                                              Text(
+                                                                                productItem.title,
+                                                                                style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                      fontFamily: 'Readex Pro',
+                                                                                      color: FlutterFlowTheme.of(context).primaryText,
+                                                                                    ),
+                                                                              ),
+                                                                              Text(
+                                                                                productItem.rating,
+                                                                                style: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                      fontFamily: 'Readex Pro',
+                                                                                      color: FlutterFlowTheme.of(context).primaryText,
+                                                                                    ),
+                                                                              ),
+                                                                              Text(
+                                                                                productItem.price,
+                                                                                style: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                      fontFamily: 'Readex Pro',
+                                                                                      color: FlutterFlowTheme.of(context).primaryText,
+                                                                                    ),
+                                                                              ),
+                                                                            ],
                                                                           ),
                                                                         ),
-                                                                      ),
-                                                                    ],
-                                                                  );
-                                                                },
-                                                              );
-                                                            },
+                                                                        Expanded(
+                                                                          flex:
+                                                                              1,
+                                                                          child:
+                                                                              InkWell(
+                                                                            splashColor:
+                                                                                Colors.transparent,
+                                                                            focusColor:
+                                                                                Colors.transparent,
+                                                                            hoverColor:
+                                                                                Colors.transparent,
+                                                                            highlightColor:
+                                                                                Colors.transparent,
+                                                                            onTap:
+                                                                                () async {
+                                                                              await launchURL(productItem.link);
+                                                                            },
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.open_in_new,
+                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                              size: 24.0,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  },
+                                                                );
+                                                              },
+                                                            ),
                                                           ),
-                                                        ),
                                                       ],
                                                     ),
                                                   );
