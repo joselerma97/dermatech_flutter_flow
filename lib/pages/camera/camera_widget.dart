@@ -458,7 +458,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                               final issueItem =
                                                   issue[issueIndex];
                                               return Text(
-                                                '${issueItem.name} with ${functions.doubleToPercentageString(issueItem.score)}%',
+                                                '${issueItem.name} with ${functions.doubleToPercentageString(issueItem.score)}',
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
