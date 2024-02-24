@@ -278,9 +278,8 @@ class _AlarmsWidgetState extends State<AlarmsWidget> {
                                                   await DeleteAlarmCall.call(
                                                 idAlarm: alarmsDataItem.id,
                                               );
-                                              if (DeleteAlarmCall.status(
-                                                (_model.status?.jsonBody ?? ''),
-                                              )!) {
+                                              if ((_model.status?.succeeded ??
+                                                  true)) {
                                                 await _model
                                                     .getAlarmsInfo(context);
                                                 setState(() {});
