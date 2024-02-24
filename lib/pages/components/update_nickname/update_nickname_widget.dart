@@ -46,143 +46,164 @@ class _UpdateNicknameWidgetState extends State<UpdateNicknameWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      color: FlutterFlowTheme.of(context).secondaryBackground,
-      elevation: 4.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
+    return Container(
+      width: MediaQuery.sizeOf(context).width * 1.0,
+      height: MediaQuery.sizeOf(context).height * 1.0,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            FlutterFlowTheme.of(context).warning,
+            FlutterFlowTheme.of(context).accent2
+          ],
+          stops: const [0.0, 1.0],
+          begin: const AlignmentDirectional(0.34, -1.0),
+          end: const AlignmentDirectional(-0.34, 1.0),
+        ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            'Update Nickname',
-            textAlign: TextAlign.center,
-            style: FlutterFlowTheme.of(context).bodyMedium,
+      child: Padding(
+        padding: const EdgeInsets.all(14.0),
+        child: Card(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+          elevation: 4.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
           ),
-          Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-            child: TextFormField(
-              controller: _model.newNicknameController,
-              focusNode: _model.newNicknameFocusNode,
-              autofocus: true,
-              obscureText: false,
-              decoration: InputDecoration(
-                labelText: 'New Nickname...',
-                labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).alternate,
-                    width: 2.0,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Update Nickname',
+                textAlign: TextAlign.center,
+                style: FlutterFlowTheme.of(context).titleLarge,
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                child: TextFormField(
+                  controller: _model.newNicknameController,
+                  focusNode: _model.newNicknameFocusNode,
+                  autofocus: true,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelText: 'New Nickname...',
+                    labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                    hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).primary,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    errorBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedErrorBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    prefixIcon: const Icon(
+                      Icons.edit,
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).primary,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                errorBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                focusedErrorBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: FlutterFlowTheme.of(context).error,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                prefixIcon: const Icon(
-                  Icons.edit,
+                  style: FlutterFlowTheme.of(context).titleLarge,
+                  validator: _model.newNicknameControllerValidator
+                      .asValidator(context),
                 ),
               ),
-              style: FlutterFlowTheme.of(context).bodyMedium,
-              validator:
-                  _model.newNicknameControllerValidator.asValidator(context),
-            ),
-          ),
-          if (_model.isLoading)
-            Lottie.asset(
-              'assets/lottie_animations/loading_animation.json',
-              width: 30.0,
-              height: 40.0,
-              fit: BoxFit.fitHeight,
-              animate: true,
-            ),
-          FFButtonWidget(
-            onPressed: () async {
-              if (_model.newNicknameController.text == '') {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'Server Error',
-                      style: TextStyle(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                      ),
-                    ),
-                    duration: const Duration(milliseconds: 4000),
-                    backgroundColor: FlutterFlowTheme.of(context).secondary,
-                  ),
-                );
-              } else {
-                setState(() {
-                  _model.isLoading = true;
-                });
-                _model.nicknameUpdate = await UpdateNicknameCall.call(
-                  userId: FFAppState().userIdServer,
-                  nickname: _model.newNicknameController.text,
-                );
-                if ((_model.nicknameUpdate?.succeeded ?? true)) {
-                  setState(() {
-                    _model.isLoading = false;
-                  });
-                  Navigator.pop(context, true);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Server Error',
-                        style: TextStyle(
-                          color: FlutterFlowTheme.of(context).primaryText,
+              if (_model.isLoading)
+                Lottie.asset(
+                  'assets/lottie_animations/loading_animation.json',
+                  width: 30.0,
+                  height: 40.0,
+                  fit: BoxFit.fitHeight,
+                  animate: true,
+                ),
+              FFButtonWidget(
+                onPressed: () async {
+                  if (_model.newNicknameController.text == '') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'Server Error',
+                          style: TextStyle(
+                            color: FlutterFlowTheme.of(context).primaryText,
+                          ),
                         ),
+                        duration: const Duration(milliseconds: 4000),
+                        backgroundColor: FlutterFlowTheme.of(context).secondary,
                       ),
-                      duration: const Duration(milliseconds: 4000),
-                      backgroundColor: FlutterFlowTheme.of(context).secondary,
-                    ),
-                  );
-                }
-              }
+                    );
+                  } else {
+                    setState(() {
+                      _model.isLoading = true;
+                    });
+                    _model.nicknameUpdate = await UpdateNicknameCall.call(
+                      userId: FFAppState().userIdServer,
+                      nickname: _model.newNicknameController.text,
+                    );
+                    if ((_model.nicknameUpdate?.succeeded ?? true)) {
+                      setState(() {
+                        _model.isLoading = false;
+                      });
+                      Navigator.pop(context, true);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Server Error',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 4000),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).secondary,
+                        ),
+                      );
+                    }
+                  }
 
-              setState(() {});
-            },
-            text: 'Update',
-            options: FFButtonOptions(
-              height: 40.0,
-              padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-              iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-              color: FlutterFlowTheme.of(context).primary,
-              textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                    fontFamily: 'Readex Pro',
-                    color: Colors.white,
+                  setState(() {});
+                },
+                text: 'Update',
+                options: FFButtonOptions(
+                  height: 40.0,
+                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                  iconPadding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primary,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily: 'Readex Pro',
+                        color: Colors.white,
+                      ),
+                  elevation: 3.0,
+                  borderSide: const BorderSide(
+                    color: Colors.transparent,
+                    width: 1.0,
                   ),
-              elevation: 3.0,
-              borderSide: const BorderSide(
-                color: Colors.transparent,
-                width: 1.0,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
               ),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

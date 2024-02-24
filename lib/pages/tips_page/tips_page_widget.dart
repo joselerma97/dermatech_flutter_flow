@@ -222,7 +222,7 @@ class _TipsPageWidgetState extends State<TipsPageWidget> {
                             child: Text(
                               _model.tips,
                               textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context).bodyMedium,
+                              style: FlutterFlowTheme.of(context).titleLarge,
                             ),
                           ),
                       ],
