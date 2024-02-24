@@ -133,7 +133,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               child: Text(
                                 'Fill out your data to create an account',
                                 style:
-                                    FlutterFlowTheme.of(context).headlineLarge,
+                                    FlutterFlowTheme.of(context).headlineMedium,
                               ),
                             ),
                             Padding(
