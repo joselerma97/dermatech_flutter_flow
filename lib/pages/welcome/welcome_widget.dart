@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
@@ -113,38 +114,48 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
         backgroundColor: Colors.white,
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                flex: 8,
-                child: ClipRRect(
+          child: Container(
+            width: MediaQuery.sizeOf(context).width * 1.0,
+            height: MediaQuery.sizeOf(context).height * 1.0,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  FlutterFlowTheme.of(context).accent2,
+                  FlutterFlowTheme.of(context).warning
+                ],
+                stops: const [0.0, 1.0],
+                begin: const AlignmentDirectional(0.34, -1.0),
+                end: const AlignmentDirectional(-0.34, 1.0),
+              ),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
-                    'assets/images/logo.png',
-                    width: double.infinity,
-                    fit: BoxFit.scaleDown,
+                    'assets/images/logo_app_transparent.png',
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    height: MediaQuery.sizeOf(context).height * 0.6,
+                    fit: BoxFit.fitWidth,
                     alignment: const Alignment(0.0, 0.0),
                   ),
                 ).animateOnPageLoad(
                     animationsMap['imageOnPageLoadAnimation1']!),
-              ),
-              Expanded(
-                flex: 2,
-                child: ClipRRect(
+                ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
-                    'assets/images/logo_ie.jpg',
-                    width: double.infinity,
-                    fit: BoxFit.scaleDown,
+                    'assets/images/logo_ie_transparent.png',
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    height: MediaQuery.sizeOf(context).height * 0.4,
+                    fit: BoxFit.none,
                     alignment: const Alignment(0.0, -1.0),
                   ),
                 ).animateOnPageLoad(
                     animationsMap['imageOnPageLoadAnimation2']!),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
