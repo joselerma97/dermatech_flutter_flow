@@ -203,18 +203,16 @@ class _TipsPageWidgetState extends State<TipsPageWidget> {
                             child: const LoadingWidget(),
                           ),
                         if (_model.tips == '-')
-                          Flexible(
-                            child: Align(
-                              alignment: const AlignmentDirectional(0.0, 0.0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: Lottie.asset(
-                                  'assets/lottie_animations/cat_chat.json',
-                                  width: 150.0,
-                                  height: 130.0,
-                                  fit: BoxFit.fitWidth,
-                                  animate: true,
-                                ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Lottie.asset(
+                                'assets/lottie_animations/cat_chat.json',
+                                width: 150.0,
+                                height: 130.0,
+                                fit: BoxFit.fitWidth,
+                                animate: true,
                               ),
                             ),
                           ),
