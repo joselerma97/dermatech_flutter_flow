@@ -132,25 +132,33 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    'assets/images/logo_app_transparent.png',
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: MediaQuery.sizeOf(context).height * 0.6,
-                    fit: BoxFit.fitWidth,
-                    alignment: const Alignment(0.0, 0.0),
+                Expanded(
+                  child: Align(
+                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          'assets/images/logo_app_transparent.png',
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          height: MediaQuery.sizeOf(context).height * 0.7,
+                          fit: BoxFit.fitHeight,
+                          alignment: const Alignment(0.0, 0.0),
+                        ),
+                      ).animateOnPageLoad(
+                          animationsMap['imageOnPageLoadAnimation1']!),
+                    ),
                   ),
-                ).animateOnPageLoad(
-                    animationsMap['imageOnPageLoadAnimation1']!),
+                ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
                     'assets/images/logo_ie_transparent.png',
                     width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: MediaQuery.sizeOf(context).height * 0.4,
+                    height: MediaQuery.sizeOf(context).height * 0.3,
                     fit: BoxFit.none,
-                    alignment: const Alignment(0.0, -1.0),
+                    alignment: const Alignment(0.0, 0.0),
                   ),
                 ).animateOnPageLoad(
                     animationsMap['imageOnPageLoadAnimation2']!),
