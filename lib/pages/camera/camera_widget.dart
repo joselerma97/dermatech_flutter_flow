@@ -590,13 +590,18 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                               );
                                                             },
                                                           ),
-                                                        Text(
-                                                          'Products Recommended',
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .titleLarge,
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets.all(
+                                                                  6.0),
+                                                          child: Text(
+                                                            'Products Recommended',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .titleLarge,
+                                                          ),
                                                         ),
                                                         if (_model.productInfo.isNotEmpty)
                                                           Expanded(
