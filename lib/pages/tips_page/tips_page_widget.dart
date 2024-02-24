@@ -217,10 +217,13 @@ class _TipsPageWidgetState extends State<TipsPageWidget> {
                             ),
                           ),
                         if (_model.tips != '-')
-                          Text(
-                            _model.tips,
-                            textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: Text(
+                              _model.tips,
+                              textAlign: TextAlign.start,
+                              style: FlutterFlowTheme.of(context).bodyMedium,
+                            ),
                           ),
                       ],
                     ),

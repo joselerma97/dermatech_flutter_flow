@@ -72,7 +72,7 @@ class _AddAlarmWidgetState extends State<AddAlarmWidget> {
               Text(
                 'Add Alarm',
                 textAlign: TextAlign.center,
-                style: FlutterFlowTheme.of(context).bodyMedium,
+                style: FlutterFlowTheme.of(context).titleLarge,
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
@@ -114,7 +114,7 @@ class _AddAlarmWidgetState extends State<AddAlarmWidget> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
+                  style: FlutterFlowTheme.of(context).titleLarge,
                   validator:
                       _model.nameControllerValidator.asValidator(context),
                 ),
@@ -124,7 +124,7 @@ class _AddAlarmWidgetState extends State<AddAlarmWidget> {
                 children: [
                   Text(
                     'Unit',
-                    style: FlutterFlowTheme.of(context).bodyMedium,
+                    style: FlutterFlowTheme.of(context).titleLarge,
                   ),
                   FlutterFlowDropDown<String>(
                     controller: _model.unitValueController ??=
@@ -135,7 +135,7 @@ class _AddAlarmWidgetState extends State<AddAlarmWidget> {
                     onChanged: (val) => setState(() => _model.unitValue = val),
                     width: 300.0,
                     height: 50.0,
-                    textStyle: FlutterFlowTheme.of(context).bodyMedium,
+                    textStyle: FlutterFlowTheme.of(context).titleLarge,
                     hintText: 'Please select...',
                     icon: Icon(
                       Icons.keyboard_arrow_down_rounded,
@@ -165,7 +165,7 @@ class _AddAlarmWidgetState extends State<AddAlarmWidget> {
                   obscureText: false,
                   decoration: InputDecoration(
                     labelText: 'Amount',
-                    labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                    labelStyle: FlutterFlowTheme.of(context).titleLarge,
                     hintStyle: FlutterFlowTheme.of(context).labelMedium,
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -196,7 +196,7 @@ class _AddAlarmWidgetState extends State<AddAlarmWidget> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
+                  style: FlutterFlowTheme.of(context).titleLarge,
                   keyboardType: TextInputType.number,
                   validator:
                       _model.amountControllerValidator.asValidator(context),

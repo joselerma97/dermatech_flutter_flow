@@ -23,12 +23,12 @@ class AlarmsModel extends FlutterFlowModel<AlarmsWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in FloatingActionButton widget.
+  String? result;
   // Model for loading component.
   late LoadingModel loadingModel;
   // Stores action output result for [Backend Call - API (deleteAlarm)] action in delete widget.
   ApiCallResponse? status;
-  // Stores action output result for [Alert Dialog - Custom Dialog] action in FloatingActionButton widget.
-  String? result;
 
   /// Initialization and disposal methods.
 

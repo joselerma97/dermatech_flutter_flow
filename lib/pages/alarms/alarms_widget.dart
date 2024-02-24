@@ -105,7 +105,7 @@ class _AlarmsWidgetState extends State<AlarmsWidget> {
           ),
         ),
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
+          backgroundColor: FlutterFlowTheme.of(context).accent2,
           automaticallyImplyLeading: false,
           title: Text(
             'Alarms',
@@ -136,159 +136,220 @@ class _AlarmsWidgetState extends State<AlarmsWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              if (_model.isLoading)
-                Expanded(
-                  child: wrapWithModel(
-                    model: _model.loadingModel,
-                    updateCallback: () => setState(() {}),
-                    child: const LoadingWidget(),
-                  ),
+          child: Container(
+            width: MediaQuery.sizeOf(context).width * 1.0,
+            height: MediaQuery.sizeOf(context).height * 1.0,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  FlutterFlowTheme.of(context).accent2,
+                  FlutterFlowTheme.of(context).warning
+                ],
+                stops: const [0.0, 1.0],
+                begin: const AlignmentDirectional(0.34, -1.0),
+                end: const AlignmentDirectional(-0.34, 1.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(14.0),
+              child: Card(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                elevation: 4.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
-              if (!_model.isLoading)
-                Builder(
-                  builder: (context) {
-                    final alarmsData = _model.alarms.toList();
-                    if (alarmsData.isEmpty) {
-                      return const EmptyWidget();
-                    }
-                    return ListView.separated(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: alarmsData.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 10.0),
-                      itemBuilder: (context, alarmsDataIndex) {
-                        final alarmsDataItem = alarmsData[alarmsDataIndex];
-                        return Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              flex: 2,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    alarmsDataItem.name,
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                  ),
-                                  Text(
-                                    '${alarmsDataItem.amount.toString()} ${alarmsDataItem.unit}',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                  ),
-                                  Text(
-                                    'Last Sent: ${alarmsDataItem.lastSend}',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  var confirmDialogResponse =
-                                      await showDialog<bool>(
-                                            context: context,
-                                            builder: (alertDialogContext) {
-                                              return AlertDialog(
-                                                title: const Text('Dermatech'),
-                                                content: Text(
-                                                    'Do you want to delete ${alarmsDataItem.name}?'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            alertDialogContext,
-                                                            false),
-                                                    child: const Text('Cancel'),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    if (_model.isLoading)
+                      Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: wrapWithModel(
+                          model: _model.loadingModel,
+                          updateCallback: () => setState(() {}),
+                          child: const LoadingWidget(),
+                        ),
+                      ),
+                    if (!_model.isLoading)
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Builder(
+                            builder: (context) {
+                              final alarmsData = _model.alarms.toList();
+                              if (alarmsData.isEmpty) {
+                                return const EmptyWidget();
+                              }
+                              return ListView.separated(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: alarmsData.length,
+                                separatorBuilder: (_, __) =>
+                                    const SizedBox(height: 10.0),
+                                itemBuilder: (context, alarmsDataIndex) {
+                                  final alarmsDataItem =
+                                      alarmsData[alarmsDataIndex];
+                                  return Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        flex: 2,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Text(
+                                              alarmsDataItem.name,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleLarge,
+                                            ),
+                                            Text(
+                                              '${alarmsDataItem.amount.toString()} ${alarmsDataItem.unit}',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleMedium
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
                                                   ),
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            alertDialogContext,
-                                                            true),
-                                                    child: const Text('Confirm'),
+                                            ),
+                                            Text(
+                                              'Last Sent: ${alarmsDataItem.lastSend}',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Readex Pro',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
                                                   ),
-                                                ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            var confirmDialogResponse =
+                                                await showDialog<bool>(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title:
+                                                              const Text('Dermatech'),
+                                                          content: Text(
+                                                              'Do you want to delete ${alarmsDataItem.name}?'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      false),
+                                                              child: const Text(
+                                                                  'Cancel'),
+                                                            ),
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      true),
+                                                              child: const Text(
+                                                                  'Confirm'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    ) ??
+                                                    false;
+                                            if (confirmDialogResponse) {
+                                              _model.status =
+                                                  await DeleteAlarmCall.call(
+                                                idAlarm: alarmsDataItem.id,
                                               );
-                                            },
-                                          ) ??
-                                          false;
-                                  if (confirmDialogResponse) {
-                                    _model.status = await DeleteAlarmCall.call(
-                                      idAlarm: alarmsDataItem.id,
-                                    );
-                                    if ((_model.status?.succeeded ?? true)) {
-                                      await _model.getAlarmsInfo(context);
-                                      setState(() {});
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Alarm Deleted',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                          ),
-                                          duration:
-                                              const Duration(milliseconds: 4000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                        ),
-                                      );
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Server Error',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                          ),
-                                          duration:
-                                              const Duration(milliseconds: 4000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                        ),
-                                      );
-                                    }
-                                  }
+                                              if (DeleteAlarmCall.status(
+                                                (_model.status?.jsonBody ?? ''),
+                                              )!) {
+                                                await _model
+                                                    .getAlarmsInfo(context);
+                                                setState(() {});
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'Alarm Deleted',
+                                                      style: TextStyle(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                      ),
+                                                    ),
+                                                    duration: const Duration(
+                                                        milliseconds: 4000),
+                                                    backgroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondary,
+                                                  ),
+                                                );
+                                              } else {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'Server Error',
+                                                      style: TextStyle(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                      ),
+                                                    ),
+                                                    duration: const Duration(
+                                                        milliseconds: 4000),
+                                                    backgroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondary,
+                                                  ),
+                                                );
+                                              }
+                                            }
 
-                                  setState(() {});
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 30.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
                                 },
-                                child: Icon(
-                                  Icons.delete,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
-            ],
+              ),
+            ),
           ),
         ),
       ),
