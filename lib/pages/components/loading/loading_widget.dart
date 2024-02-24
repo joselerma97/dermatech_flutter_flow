@@ -56,7 +56,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
         ),
         Text(
           'Loading...',
-          style: FlutterFlowTheme.of(context).bodyMedium,
+          style: FlutterFlowTheme.of(context).titleLarge,
         ),
       ],
     );
