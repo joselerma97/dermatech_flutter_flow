@@ -11,7 +11,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'camera_model.dart';
@@ -51,15 +50,6 @@ class _CameraWidgetState extends State<CameraWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -166,16 +156,24 @@ class _CameraWidgetState extends State<CameraWidget> {
                         );
                       });
                       setState(() {
-                        _model.imagePredictions = FullPredictionCall.predResult(
+                        _model.imagePredictions =
+                            (FullPredictionCall.predResult(
                           (_model.apiResult4c6?.jsonBody ?? ''),
                         )!
-                            .toList()
-                            .cast<String>();
+                                    .toList()
+                                    .map<PredResultStruct?>(
+                                        PredResultStruct.maybeFromMap)
+                                    .toList() as Iterable<PredResultStruct?>)
+                                .withoutNulls
+                                .toList()
+                                .cast<PredResultStruct>();
                       });
                       setState(() {
                         _model.isProcessed = true;
                       });
-                      if (functions.isIssue(_model.imagePredictions.toList())) {
+                      if (functions.isIssue(_model.imagePredictions
+                          .map((e) => e.name)
+                          .toList())) {
                         _model.getDoctorsApi = await GetDoctorsCall.call();
                         if ((_model.getDoctorsApi?.succeeded ?? true)) {
                           setState(() {
@@ -211,7 +209,9 @@ class _CameraWidgetState extends State<CameraWidget> {
                         });
                         _model.productsResults =
                             await GetProductRecommendationByScanCall.call(
-                          issuesList: _model.imagePredictions,
+                          issuesList: _model.imagePredictions
+                              .map((e) => e.name)
+                              .toList(),
                         );
                         if ((_model.productsResults?.succeeded ?? true)) {
                           setState(() {
@@ -325,8 +325,9 @@ class _CameraWidgetState extends State<CameraWidget> {
                           } else {
                             return Builder(
                               builder: (context) {
-                                if (functions.isIssue(
-                                    _model.imagePredictions.toList())) {
+                                if (functions.isIssue(_model.imagePredictions
+                                    .map((e) => e.name)
+                                    .toList())) {
                                   return Column(
                                     mainAxisSize: MainAxisSize.max,
                                     crossAxisAlignment:
@@ -456,7 +457,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                               final issueItem =
                                                   issue[issueIndex];
                                               return Text(
-                                                issueItem,
+                                                issueItem.name,
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
