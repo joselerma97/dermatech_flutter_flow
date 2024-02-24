@@ -23,3 +23,18 @@ bool isIssue(List<String> predictions) {
   // Check if intersection is not empty
   return intersection.isNotEmpty;
 }
+
+String doubleToPercentageString(double value) {
+  // Convert to percentage and round to 2 decimal places
+  String percentage = (value * 100).toStringAsFixed(2);
+  // Append '%' to make it clear it's a percentage
+  return "$percentage%";
+}
+
+String getIllnessData(List<PredResultStruct> predictRresults) {
+  PredResultStruct result = predictRresults[0];
+  String name = result.name;
+  double score = result.score;
+  String scorePercentage = doubleToPercentageString(score);
+  return "We recommend you to go to a doctor because we detected $name with $scorePercentage. There are some good options:";
+}
