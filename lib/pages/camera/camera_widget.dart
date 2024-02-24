@@ -380,7 +380,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                   animate: true,
                                                 ),
                                                 Text(
-                                                  'We do not found any issue. Take another picture to double check',
+                                                  'We do not found any issue. Take another picture to double check.',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .titleLarge,
@@ -401,17 +401,20 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                         CrossAxisAlignment
                                                             .stretch,
                                                     children: [
-                                                      Text(
-                                                        functions.getIllnessData(
-                                                            _model
-                                                                .imagePredictions
-                                                                .toList()),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleLarge,
+                                                      Padding(
+                                                        padding: const EdgeInsets.all(
+                                                            10.0),
+                                                        child: Text(
+                                                          functions.getIllnessData(
+                                                              _model
+                                                                  .imagePredictions
+                                                                  .toList()),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .titleLarge,
+                                                        ),
                                                       ),
                                                       if (_model.doctorsInfo.isNotEmpty)
                                                         Expanded(
