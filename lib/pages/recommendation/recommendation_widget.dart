@@ -253,12 +253,27 @@ class _RecommendationWidgetState extends State<RecommendationWidget> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Expanded(
-                                          flex: 2,
+                                          flex: 1,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Image.network(
+                                              productsDataItem.img,
+                                              width: 300.0,
+                                              height: 200.0,
+                                              fit: BoxFit.fitWidth,
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 3,
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Text(
-                                                productsDataItem.title,
+                                                productsDataItem.title
+                                                    .maybeHandleOverflow(
+                                                        maxChars: 140),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .titleLarge,

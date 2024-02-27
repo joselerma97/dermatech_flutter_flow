@@ -14,13 +14,15 @@ class ProductInfoStruct extends BaseStruct {
     String? rating,
     int? totalRating,
     String? skinType,
+    String? img,
   })  : _id = id,
         _title = title,
         _link = link,
         _price = price,
         _rating = rating,
         _totalRating = totalRating,
-        _skinType = skinType;
+        _skinType = skinType,
+        _img = img;
 
   // "id" field.
   String? _id;
@@ -65,6 +67,12 @@ class ProductInfoStruct extends BaseStruct {
   set skinType(String? val) => _skinType = val;
   bool hasSkinType() => _skinType != null;
 
+  // "img" field.
+  String? _img;
+  String get img => _img ?? '';
+  set img(String? val) => _img = val;
+  bool hasImg() => _img != null;
+
   static ProductInfoStruct fromMap(Map<String, dynamic> data) =>
       ProductInfoStruct(
         id: data['id'] as String?,
@@ -74,6 +82,7 @@ class ProductInfoStruct extends BaseStruct {
         rating: data['rating'] as String?,
         totalRating: castToType<int>(data['total_rating']),
         skinType: data['skin_type'] as String?,
+        img: data['img'] as String?,
       );
 
   static ProductInfoStruct? maybeFromMap(dynamic data) => data is Map
@@ -88,6 +97,7 @@ class ProductInfoStruct extends BaseStruct {
         'rating': _rating,
         'total_rating': _totalRating,
         'skin_type': _skinType,
+        'img': _img,
       }.withoutNulls;
 
   @override
@@ -118,6 +128,10 @@ class ProductInfoStruct extends BaseStruct {
         ),
         'skin_type': serializeParam(
           _skinType,
+          ParamType.String,
+        ),
+        'img': serializeParam(
+          _img,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -159,6 +173,11 @@ class ProductInfoStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        img: deserializeParam(
+          data['img'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -173,12 +192,13 @@ class ProductInfoStruct extends BaseStruct {
         price == other.price &&
         rating == other.rating &&
         totalRating == other.totalRating &&
-        skinType == other.skinType;
+        skinType == other.skinType &&
+        img == other.img;
   }
 
   @override
   int get hashCode => const ListEquality()
-      .hash([id, title, link, price, rating, totalRating, skinType]);
+      .hash([id, title, link, price, rating, totalRating, skinType, img]);
 }
 
 ProductInfoStruct createProductInfoStruct({
@@ -189,6 +209,7 @@ ProductInfoStruct createProductInfoStruct({
   String? rating,
   int? totalRating,
   String? skinType,
+  String? img,
 }) =>
     ProductInfoStruct(
       id: id,
@@ -198,4 +219,5 @@ ProductInfoStruct createProductInfoStruct({
       rating: rating,
       totalRating: totalRating,
       skinType: skinType,
+      img: img,
     );

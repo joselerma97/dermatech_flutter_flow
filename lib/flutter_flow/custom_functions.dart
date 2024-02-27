@@ -36,5 +36,5 @@ String getIllnessData(List<PredResultStruct> predictRresults) {
   String name = result.name;
   double score = result.score;
   String scorePercentage = doubleToPercentageString(score);
-  return "We recommend you to go to a doctor because we detected $name with $scorePercentage. There are some good options:";
+  return "We recommend you to go to a doctor because we detected $name with $scorePercentage of probability. There are some good options:";
 }
