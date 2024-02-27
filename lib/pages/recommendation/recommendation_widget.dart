@@ -273,7 +273,9 @@ class _RecommendationWidgetState extends State<RecommendationWidget> {
                                               Text(
                                                 productsDataItem.title
                                                     .maybeHandleOverflow(
-                                                        maxChars: 140),
+                                                  maxChars: 140,
+                                                  replacement: '…',
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .titleLarge,
