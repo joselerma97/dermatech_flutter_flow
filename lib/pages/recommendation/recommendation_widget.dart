@@ -273,7 +273,7 @@ class _RecommendationWidgetState extends State<RecommendationWidget> {
                                               Text(
                                                 productsDataItem.title
                                                     .maybeHandleOverflow(
-                                                  maxChars: 140,
+                                                  maxChars: 100,
                                                   replacement: '…',
                                                 ),
                                                 style:

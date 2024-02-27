@@ -687,7 +687,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                             children: [
                                                                               Text(
                                                                                 productItem.title.maybeHandleOverflow(
-                                                                                  maxChars: 140,
+                                                                                  maxChars: 100,
                                                                                   replacement: '…',
                                                                                 ),
                                                                                 style: FlutterFlowTheme.of(context).titleMedium.override(
