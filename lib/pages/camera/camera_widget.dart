@@ -661,7 +661,23 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                       children: [
                                                                         Expanded(
                                                                           flex:
-                                                                              2,
+                                                                              1,
+                                                                          child:
+                                                                              ClipRRect(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(8.0),
+                                                                            child:
+                                                                                Image.network(
+                                                                              productItem.img,
+                                                                              width: 300.0,
+                                                                              height: 200.0,
+                                                                              fit: BoxFit.fitWidth,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Expanded(
+                                                                          flex:
+                                                                              3,
                                                                           child:
                                                                               Column(
                                                                             mainAxisSize:
@@ -670,7 +686,10 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                                 CrossAxisAlignment.stretch,
                                                                             children: [
                                                                               Text(
-                                                                                productItem.title,
+                                                                                productItem.title.maybeHandleOverflow(
+                                                                                  maxChars: 140,
+                                                                                  replacement: '…',
+                                                                                ),
                                                                                 style: FlutterFlowTheme.of(context).titleMedium.override(
                                                                                       fontFamily: 'Readex Pro',
                                                                                       color: FlutterFlowTheme.of(context).primaryText,
