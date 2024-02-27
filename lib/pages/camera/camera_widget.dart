@@ -583,7 +583,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                       issue[
                                                                           issueIndex];
                                                                   return Text(
-                                                                    '${issueItem.name} with ${functions.doubleToPercentageString(issueItem.score)}',
+                                                                    '${issueItem.name} with ${functions.doubleToPercentageString(issueItem.score)} of probability.',
                                                                     textAlign:
                                                                         TextAlign
                                                                             .center,
