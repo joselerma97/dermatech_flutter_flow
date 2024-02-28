@@ -185,6 +185,12 @@ class _CameraWidgetState extends State<CameraWidget> {
                                   if ((_model.apiResult4c6?.succeeded ??
                                       true)) {
                                     setState(() {
+                                      _model.isIllness =
+                                          FullPredictionCall.isIllness(
+                                        (_model.apiResult4c6?.jsonBody ?? ''),
+                                      );
+                                    });
+                                    setState(() {
                                       _model.imageUrl = valueOrDefault<String>(
                                         FullPredictionCall.imageName(
                                           (_model.apiResult4c6?.jsonBody ?? ''),
@@ -390,10 +396,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                           } else {
                                             return Builder(
                                               builder: (context) {
-                                                if (functions.isIssue(_model
-                                                    .imagePredictions
-                                                    .map((e) => e.name)
-                                                    .toList())) {
+                                                if (_model.isIllness) {
                                                   return Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,

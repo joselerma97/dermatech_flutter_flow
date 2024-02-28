@@ -51,6 +51,8 @@ class CameraModel extends FlutterFlowModel<CameraWidget> {
           int index, Function(ProductInfoStruct) updateFn) =>
       productInfo[index] = updateFn(productInfo[index]);
 
+  bool isIllness = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

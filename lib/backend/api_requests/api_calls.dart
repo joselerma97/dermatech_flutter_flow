@@ -239,6 +239,10 @@ class FullPredictionCall {
         response,
         r'''$.pred_result''',
       );
+  static dynamic isIllness(dynamic response) => getJsonField(
+        response,
+        r'''$.is_illness''',
+      );
 }
 
 class GetDoctorsCall {
