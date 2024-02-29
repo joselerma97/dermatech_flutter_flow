@@ -218,6 +218,21 @@ class _CameraWidgetState extends State<CameraWidget> {
                                       _model.isProcessed = true;
                                     });
                                     FFAppState().update(() {});
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          _model.isIllness.toString(),
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration: const Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      ),
+                                    );
                                     if (_model.isIllness) {
                                       _model.getDoctorsApi =
                                           await GetDoctorsCall.call();
