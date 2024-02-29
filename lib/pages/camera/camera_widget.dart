@@ -217,10 +217,8 @@ class _CameraWidgetState extends State<CameraWidget> {
                                     setState(() {
                                       _model.isProcessed = true;
                                     });
-                                    if (functions.isIssue(_model
-                                        .imagePredictions
-                                        .map((e) => e.name)
-                                        .toList())) {
+                                    FFAppState().update(() {});
+                                    if (_model.isIllness) {
                                       _model.getDoctorsApi =
                                           await GetDoctorsCall.call();
                                       if ((_model.getDoctorsApi?.succeeded ??
@@ -458,6 +456,14 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                         MainAxisAlignment
                                                                             .spaceBetween,
                                                                     children: [
+                                                                      Text(
+                                                                        doctorInfoItem
+                                                                            .name,
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .titleLarge,
+                                                                      ),
                                                                       Flexible(
                                                                         child:
                                                                             ClipRRect(
@@ -481,14 +487,6 @@ class _CameraWidgetState extends State<CameraWidget> {
                                                                                 const Alignment(-1.0, -1.0),
                                                                           ),
                                                                         ),
-                                                                      ),
-                                                                      Text(
-                                                                        doctorInfoItem
-                                                                            .name,
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .titleLarge,
                                                                       ),
                                                                       InkWell(
                                                                         splashColor:
